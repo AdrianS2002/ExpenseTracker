@@ -1,0 +1,19 @@
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  text-align: center;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 3rem;
+  color: red;
+}
+
+p {
+  font-size: 1.5rem;
+}
+
+
