@@ -81,21 +81,7 @@ export class AuthComponent {
     this.successMessage = null;
   }
   onForgotPassword(emailInput: HTMLInputElement) {
-    const email = emailInput.value;
-    if (!email) {
-      this.error = "Please enter your email.";
-      return;
-    }
-    this.authService.resetPassword(email).subscribe({
-      next: () => {
-        this.successMessage = "If an account exists with this email, a password reset link has been sent. Check your inbox!";
-        this.error = null;
-      },
-      error: (errorMessage) => {
-        console.log(errorMessage);
-        this.error = errorMessage;
-      }
-    });
+    this.router.navigate(['/forgot-password']);
   }
 
 }
