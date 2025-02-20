@@ -1,0 +1,62 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --font-primary: 'Poppins', sans-serif;
+  --primary-bg: #d3d5d6d7;
+  --secondary-bg: #373c4f;
+  --text-color: azure;
+  --button-bg: #b38add;
+  --button-hover-bg: #a676d1;
+  --input-bg: #fff;
+  --input-text: #373c4f;
+  --border-color: rgba(255, 255, 255, 0.2);
+  --padding-lg: 2rem;
+  --padding-md: 1rem;
+  --border-radius: 10px;
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-primary);
+}
+
+/* Summary Page Container */
+.summary-page {
+  padding: var(--padding-lg);
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+}
+
+/* Page Title */
+.summary-page h1 {
+  text-align: center;
+  margin-bottom: var(--padding-md);
+}
+
+/* Summary Element */
+.summary-element {
+  display: block;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--padding-md);
+  background-color: var(--secondary-bg);
+}
+
+/* Expense List Styling */
+.expense-list {
+  list-style: none;
+  padding: 0;
+}
+
+.expense-list li {
+  padding: var(--padding-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.expense-list li:last-child {
+  border-bottom: none;
+}
