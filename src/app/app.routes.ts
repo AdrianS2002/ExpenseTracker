@@ -1,15 +1,14 @@
-// app-routing.module.ts
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+// src/app/app.routes.ts
+import { Routes } from '@angular/router';
 import { SummaryComponent } from './summary/summary.component';
 
-const routes: Routes = [
+export const routes: Routes = [
+  // Route for the summary page
   { path: 'summary', component: SummaryComponent },
   
-];
+  // Redirect empty path to summary or add your default route here
+  { path: '', redirectTo: '/summary', pathMatch: 'full' },
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+  // Optionally add a wildcard route for a 404 page
+  { path: '**', redirectTo: '/summary' }
+];

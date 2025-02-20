@@ -1,11 +1,11 @@
+// src/app/summary/summary.component.ts
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-summary',
-  imports: [],
   templateUrl: './summary.component.html',
-  styleUrl: './summary.component.css'
+  styleUrls: ['./summary.component.css'],
+  standalone: true,
+  imports: [],      
 })
-export class SummaryComponent {
-
-}
+export class SummaryComponent {}
