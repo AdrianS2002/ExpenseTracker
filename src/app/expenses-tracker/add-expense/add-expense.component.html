@@ -1,1 +1,44 @@
-<p>add-expense works!</p>
+<div class="add-expense">
+    <div class="expense-input-container">
+        <div class="input-group">
+            <label for="expense-name">Expense Name</label>
+            <input type="text" 
+                   id="expense-name" 
+                   placeholder="e.g. Office supplies" 
+                   class="expense-input">
+        </div>
+        <div class="input-group">
+            <label for="amount">Amount</label>
+            <div class="amount-input">
+                <span class="currency">$</span>
+                <input type="number" 
+                       id="amount" 
+                       placeholder="0.00"
+                       min="0"
+                       step="0.01"
+                       class="expense-input">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="input-group">
+            <label for="category">Category</label>
+            <select class="expense-input" 
+                    id="category" 
+                    name="category" 
+                    required>
+                <option value="" disabled selected>Choose category...</option>
+                <option>Groceries</option>
+                <option>Transportation</option>
+            </select>
+        </div>
+        <button class="add-category">
+            <span class="plus">+</span> New Category
+        </button>
+    </div>    
+    
+    <button class="add-button">
+        <span class="button-icon">➕</span> Add Expense
+    </button>
+</div>
