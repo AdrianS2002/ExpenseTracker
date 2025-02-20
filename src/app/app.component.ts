@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DayPickerComponent } from "./expenses-tracker/day-picker/day-picker.component";
-import { ExpensesListComponent } from "./expenses-tracker/expenses-list/expenses-list.component";
-import { ExpenseComponent } from "./expenses-tracker/expenses-list/expense/expense.component";
+
+import { ExpensesTrackerComponent } from "./expenses-tracker/expenses-tracker.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, DayPickerComponent, ExpensesListComponent, ExpenseComponent],
+  imports: [RouterOutlet, ExpensesTrackerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
