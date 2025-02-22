@@ -22,11 +22,19 @@
     margin-bottom: 10px;
   }
   
-  .day {
+  .availableDay {
     text-align: center;
     padding: 8px;
     font-weight: bold;
     color: #666;
+    font-size: 0.9rem;
+  }
+
+  .unavailableDay {
+    text-align: center;
+    padding: 8px;
+    font-weight: bold;
+    color: red;
     font-size: 0.9rem;
   }
 
