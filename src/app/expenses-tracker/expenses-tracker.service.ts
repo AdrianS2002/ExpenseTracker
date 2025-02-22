@@ -1,144 +1,172 @@
-import { inject, Injectable, Signal, signal } from '@angular/core';
+import { inject, Injectable, Signal, signal, computed } from '@angular/core';
 import { DatabaseService } from '../database/databse.service';
 import { Category } from '../database/models/category.model';
 import { Expense } from '../database/models/expenses.model';
+import { catchError, map, Observable, of, tap } from 'rxjs';
+
+const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as const;
+const DAY_NUMBER_AMERICAN_TO_EUROPEAN = [6, 0, 1, 2, 3, 4, 5] as const;
+type DayOfWeek = typeof DAYS_OF_WEEK[number];
+
+interface UserData {
+  id: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExpensesTrackerService {
-  private databaseService = inject(DatabaseService);
+  private readonly databaseService = inject(DatabaseService);
 
-  private selectedDay = signal("Monday");
-  private availableDays: string[] = [''];
-  private unavailableDays: string[] = [''];
-  private dayToDateMap = new Map<string, string>();
+  // Core state
+  private readonly selectedDay = signal<DayOfWeek>('Sunday');
+  private readonly expenseCategories = signal<Category[]>([]);
+  private readonly expenses = signal<Expense[]>([]);
 
-  private expenseCategories = signal<Category[]>([]);
-  private expenses = signal<Expense[]>([]);
-
-  constructor() { 
-    this.generateDayToDateMap();
-    this.determineAvailableDays();
-    this.fetchExpenseCategories();
-    this.fetchExpensesForSelectedDay();
+  private readonly dayToDateMap = this.generateDayToDateMap();
+  
+  constructor() {
+    this.initializeService();
   }
 
-  getSelectedDay(): Signal<string> {
-    return this.selectedDay;
+  // Public API
+  getSelectedDay(): Signal<DayOfWeek> {
+    return this.selectedDay.asReadonly();
   }
 
   getExpenses(): Signal<Expense[]> {
-    return this.expenses;
-  }
-  
-  setSelectedDay(day: string): void {
-    if(!this.availableDays.includes(day)) {
-      return;
-    }
-
-    console.log("Setting day to: ", day);
-    this.selectedDay.set(day);
-
-    this.fetchExpensesForSelectedDay();
-  }
-
-  getAvailableDays(): string[] {
-    return this.availableDays;
-  }
-
-  getUnavailableDays(): string[] {
-    return this.unavailableDays;
+    return this.expenses.asReadonly();
   }
 
   getExpenseCategories(): Signal<Category[]> {
-    console.log("Getting categories: ", this.expenseCategories());
-    return this.expenseCategories;
+    return this.expenseCategories.asReadonly();
   }
 
-  getCategoryNameById(categoryId: string): string {
-    const category = this.expenseCategories().find((category) => category.id === categoryId);
-    return category ? category.name : "";
+  getAvailableDays(): DayOfWeek[] {
+    const currentDay = DAY_NUMBER_AMERICAN_TO_EUROPEAN[new Date().getDay()];
+    return DAYS_OF_WEEK.slice(0, currentDay + 1);
   }
 
-  fetchExpensesForSelectedDay(): void {
-    if(!localStorage.getItem('userData')) {
-      console.log("User data not found!");
+  getUnavailableDays(): DayOfWeek[] {
+    const currentDay = DAY_NUMBER_AMERICAN_TO_EUROPEAN[new Date().getDay()];
+    return DAYS_OF_WEEK.slice(currentDay + 1);
+  }
+
+  setSelectedDay(day: DayOfWeek): void {
+    if (!this.getAvailableDays().includes(day)) {
       return;
     }
 
-    const user = JSON.parse(localStorage.getItem('userData')!);
-
-    this.databaseService.
-    getExpensesForDate(user.id, this.dayToDateMap.get(this.selectedDay())!).
-    subscribe((expenses) => (this.expenses.set(expenses)));
-  }
-
-  generateDayToDateMap(): void {
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const today = new Date();
-    const currentDay = today.getDay(); // 0 (Sunday) to 6 (Saturday)
-    
-    // Calculate the date of the most recent Sunday
-    const sunday = new Date(today);
-    sunday.setDate(today.getDate() - currentDay);
-    sunday.setHours(0, 0, 0, 0); // Normalize time to avoid timezone issues
-
-
-    for (let i = 0; i < 7; i++) {
-        const date = new Date(sunday);
-        date.setDate(sunday.getDate() + i);
-        
-        // Format date as YYYY-MM-DD (local time)
-        const formattedDate = 
-            `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-` +
-            `${date.getDate().toString().padStart(2, '0')}`;
-        
-        this.dayToDateMap.set(daysOfWeek[i], formattedDate);
-    }
-
-    console.log("Day to date map: ", this.dayToDateMap);
-}
-
-  determineAvailableDays(): void {
-    const currentDay = new Date().getDay();
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-    this.availableDays = daysOfWeek.slice(0, currentDay+1);
-    this.unavailableDays = daysOfWeek.slice(currentDay+1);
-  }
-
-  fetchExpenseCategories(): void {
-    if(!localStorage.getItem('userData')) {
-      console.log("User data not found!");
-      return;
-    }
-
-    const user = JSON.parse(localStorage.getItem('userData')!);
-
-    this.databaseService.getCategories(user.id).subscribe((categories) => {
-      this.expenseCategories.set(categories);
-    } );
+    this.selectedDay.set(day);
+    this.fetchExpensesForSelectedDay();
   }
 
   addExpense(name: string, amount: number, categoryId: string): void {
-    if(!localStorage.getItem('userData')) {
-      console.log("User data not found!");
-      return;
-    }
-     
-    const user = JSON.parse(localStorage.getItem('userData')!);
+    const userData = this.getUserData();
+    if (!userData) return;
 
     const expense: Omit<Expense, 'id'> = {
       name,
       amount,
       categoryId,
-      date: this.dayToDateMap.get(this.selectedDay())!
+      date: this.dayToDateMap.get(this.selectedDay()) ?? ''
     };
 
-    this.databaseService.addExpense(user.id, expense).subscribe(() => {
-      console.log("Expense added successfully!");
-      this.fetchExpensesForSelectedDay();
+    this.databaseService.addExpense(userData.id, expense).pipe(
+      tap(() => this.fetchExpensesForSelectedDay()),
+      catchError((error) => {
+        console.error('Failed to add expense:', error);
+        return of(null);
+      })
+    ).subscribe();
+  }
+
+  // Private methods
+  private initializeService(): void {
+    this.generateDayToDateMap();
+    this.fetchExpenseCategories();
+    this.fetchExpensesForSelectedDay();
+  }
+
+  private fetchExpensesForSelectedDay(): void {
+    const userData = this.getUserData();
+    if (!userData) return;
+
+    const date = this.dayToDateMap.get(this.selectedDay());
+    if (!date) return;
+
+    this.databaseService.getExpensesForDate(userData.id, date).pipe(
+      map(expenses => this.enrichExpensesWithCategories(expenses)),
+      catchError((error) => {
+        console.error('Failed to fetch expenses:', error);
+        return of([]);
+      })
+    ).subscribe(expenses => this.expenses.set(expenses));
+  }
+
+  private fetchExpenseCategories(): void {
+    const userData = this.getUserData();
+    if (!userData) return;
+
+    this.databaseService.getCategories(userData.id).pipe(
+      catchError((error) => {
+        console.error('Failed to fetch categories:', error);
+        return of([]);
+      })
+    ).subscribe(categories => this.expenseCategories.set(categories));
+  }
+
+  private enrichExpensesWithCategories(expenses: Expense[]): Expense[] {
+    return expenses.map(expense => ({
+      ...expense,
+      categoryName: this.getCategoryNameById(expense.categoryId)
+    }));
+  }
+
+  private getCategoryNameById(categoryId: string): string {
+    return this.expenseCategories()
+      .find(category => category.id === categoryId)
+      ?.name ?? '';
+  }
+
+  private generateDayToDateMap(): Map<DayOfWeek, string> {
+    const map = new Map<DayOfWeek, string>();
+    const today = new Date();
+    const monday = new Date(today);
+    
+    monday.setDate(today.getDate() - DAY_NUMBER_AMERICAN_TO_EUROPEAN[today.getDay()]);
+    monday.setHours(0, 0, 0, 0);
+
+    DAYS_OF_WEEK.forEach((day, index) => {
+      const date = new Date(monday);
+      date.setDate(monday.getDate() + index);
+      map.set(day, this.formatDate(date));
     });
+
+    return map;
+  }
+
+  private formatDate(date: Date): string {
+    return [
+      date.getFullYear(),
+      String(date.getMonth() + 1).padStart(2, '0'),
+      String(date.getDate()).padStart(2, '0')
+    ].join('-');
+  }
+
+  private getUserData(): UserData | null {
+    const userData = localStorage.getItem('userData');
+    
+    if (!userData) {
+      console.warn('User data not found');
+      return null;
+    }
+
+    try {
+      return JSON.parse(userData);
+    } catch (error) {
+      console.error('Failed to parse user data:', error);
+      return null;
+    }
   }
 }

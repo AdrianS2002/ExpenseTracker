@@ -1,6 +1,6 @@
 <div class="expenses-list">
     @for (expense of this.expenseTrackerService.getExpenses()(); track $index) {
-        <app-expense [name]="expense.name" [category]="expenseTrackerService.getCategoryNameById(expense.categoryId)" [amount]="expense.amount"></app-expense>
+        <app-expense [name]="expense.name" [category]="expense.categoryName" [amount]="expense.amount"></app-expense>
     }
 
   <!-- Total Section -->
