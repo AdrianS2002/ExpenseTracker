@@ -76,7 +76,7 @@ export class DatabaseService {
 
     //CRUD PE EXPENSES
 
-    addExpense(userId: string, expense: Expense): Observable<void> {
+    addExpense(userId: string, expense: Omit<Expense, 'id'>): Observable<void> {
         const expensesRef = collection(this.firestore, `users/${userId}/expenses`);
         return from(addDoc(expensesRef, expense)).pipe(
             map(() => console.log("Expense added successfully!"))
