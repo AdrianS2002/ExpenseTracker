@@ -29,6 +29,13 @@
     color: #666;
     font-size: 0.9rem;
   }
+
+  .selectedDay {
+   font-weight: bolder;
+   text-align: center;
+   padding: 8px;
+   font-size: 1.3rem;
+  }
   
   .date {
     border: none;

@@ -1,13 +1,9 @@
 <div class="day-picker-container">
     <div class="calendar-header">
       <div class="days-grid">
-        <div class="day">Monday</div>
-        <div class="day">Tuesday</div>
-        <div class="day">Wednesday</div>
-        <div class="day">Thursday</div>
-        <div class="day">Friday</div>
-        <div class="day">Saturday</div>
-        <div class="day">Sunday</div>
+       @for (day of daysOfWeek; track $index) {
+        <div [class]="expensesTrackerService.getSelectedDay()() === day ? 'selectedDay' : 'day'" (click)="expensesTrackerService.setSelectedDay(day)">{{ day }}</div>
+       }
       </div>
     </div>
   </div>
