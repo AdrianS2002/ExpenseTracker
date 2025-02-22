@@ -40,16 +40,4 @@ export class ExpensesTrackerService {
     this.availableDays = daysOfWeek.slice(0, currentDay);
     this.unavailableDays = daysOfWeek.slice(currentDay);
   }
-
-  determineDayClass(day: string): string {
-    if(this.selectedDay() === day) {
-      return "selectedDay";
-    }
-
-    if(this.availableDays.includes(day)) {
-      return "availableDay";
-    }
-
-    return "unavailableDay";
-} 
 }

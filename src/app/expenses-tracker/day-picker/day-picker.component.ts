@@ -9,6 +9,5 @@ import { ExpensesTrackerService } from '../expenses-tracker.service';
   styleUrl: './day-picker.component.css'
 })
 export class DayPickerComponent {
-  daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   expensesTrackerService = inject(ExpensesTrackerService);
 }
