@@ -61,7 +61,6 @@ export class DatabaseService {
             map((querySnapshot) => querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Category)))
         );
     }
-
    
     updateCategory(userId: string, categoryId: string, updatedName: string): Observable<void> {
         const categoryRef = doc(this.firestore, `users/${userId}/categories/${categoryId}`);
@@ -86,6 +85,16 @@ export class DatabaseService {
     getExpenses(userId: string): Observable<Expense[]> {
         const expensesRef = collection(this.firestore, `users/${userId}/expenses`);
         return collectionData(expensesRef, { idField: 'id' }) as Observable<Expense[]>;
+    }
+
+    getExpensesForDate(userId: string, date: string): Observable<Expense[]> {
+        const expensesRef = collection(this.firestore, "users", userId, "expenses");
+        const q = query(expensesRef, where("date", "==", date));
+        const querySnapshot = getDocs(q);
+        return from(querySnapshot).pipe(
+            map((querySnapshot) => querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Expense))
+            )
+        );
     }
     
     getWeeklyExpenses(userId: string, startDate: string, endDate: string): Observable<Expense[]> {

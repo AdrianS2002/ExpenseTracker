@@ -15,17 +15,23 @@ export class ExpensesTrackerService {
   private dayToDateMap = new Map<string, string>();
 
   private expenseCategories = signal<Category[]>([]);
+  private expenses = signal<Expense[]>([]);
 
   constructor() { 
     this.generateDayToDateMap();
     this.determineAvailableDays();
     this.fetchExpenseCategories();
+    this.fetchExpensesForSelectedDay();
   }
 
   getSelectedDay(): Signal<string> {
     return this.selectedDay;
   }
 
+  getExpenses(): Signal<Expense[]> {
+    return this.expenses;
+  }
+  
   setSelectedDay(day: string): void {
     if(!this.availableDays.includes(day)) {
       return;
@@ -33,6 +39,8 @@ export class ExpensesTrackerService {
 
     console.log("Setting day to: ", day);
     this.selectedDay.set(day);
+
+    this.fetchExpensesForSelectedDay();
   }
 
   getAvailableDays(): string[] {
@@ -46,6 +54,24 @@ export class ExpensesTrackerService {
   getExpenseCategories(): Signal<Category[]> {
     console.log("Getting categories: ", this.expenseCategories());
     return this.expenseCategories;
+  }
+
+  getCategoryNameById(categoryId: string): string {
+    const category = this.expenseCategories().find((category) => category.id === categoryId);
+    return category ? category.name : "";
+  }
+
+  fetchExpensesForSelectedDay(): void {
+    if(!localStorage.getItem('userData')) {
+      console.log("User data not found!");
+      return;
+    }
+
+    const user = JSON.parse(localStorage.getItem('userData')!);
+
+    this.databaseService.
+    getExpensesForDate(user.id, this.dayToDateMap.get(this.selectedDay())!).
+    subscribe((expenses) => (this.expenses.set(expenses)));
   }
 
   generateDayToDateMap(): void {
@@ -112,6 +138,7 @@ export class ExpensesTrackerService {
 
     this.databaseService.addExpense(user.id, expense).subscribe(() => {
       console.log("Expense added successfully!");
+      this.fetchExpensesForSelectedDay();
     });
   }
 }
