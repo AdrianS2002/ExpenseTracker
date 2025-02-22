@@ -54,9 +54,12 @@ export class DatabaseService {
         );
     }
 
-    getCategories(userId: string): Observable<Category[]> {
-        const categoryRef = collection(this.firestore, `users/${userId}/categories`);
-        return collectionData(categoryRef, { idField: 'id' }) as Observable<Category[]>;
+      getCategories(userId: string): Observable<Category[]> {
+        const categoryRef = collection(this.firestore, "users", userId, "categories");
+        const querySnapshot = getDocs(categoryRef);
+        return from(querySnapshot).pipe(
+            map((querySnapshot) => querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Category)))
+        );
     }
 
    

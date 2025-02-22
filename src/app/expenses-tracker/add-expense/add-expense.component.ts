@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { DatabaseService } from '../../database/databse.service';
+import { ExpensesTrackerService } from '../expenses-tracker.service';
 
 @Component({
   selector: 'app-add-expense',
@@ -8,5 +10,5 @@ import { Component } from '@angular/core';
   styleUrl: './add-expense.component.css'
 })
 export class AddExpenseComponent {
-
+   expensesTrackerService = inject(ExpensesTrackerService);
 }

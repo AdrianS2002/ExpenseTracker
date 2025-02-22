@@ -29,8 +29,9 @@
                     name="category" 
                     required>
                 <option value="" disabled selected>Choose category...</option>
-                <option>Groceries</option>
-                <option>Transportation</option>
+               @for (category of expensesTrackerService.getExpenseCategories()(); track $index) {
+                <option value={{category.id}}>{{category.name}}</option>
+               }
             </select>
         </div>
         <button class="add-category">
