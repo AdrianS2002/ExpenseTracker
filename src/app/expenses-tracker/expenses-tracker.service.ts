@@ -102,10 +102,10 @@ export class ExpensesTrackerService {
 
   determineAvailableDays(): void {
     const currentDay = new Date().getDay();
-    const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-    this.availableDays = daysOfWeek.slice(0, currentDay);
-    this.unavailableDays = daysOfWeek.slice(currentDay);
+    this.availableDays = daysOfWeek.slice(0, currentDay+1);
+    this.unavailableDays = daysOfWeek.slice(currentDay+1);
   }
 
   fetchExpenseCategories(): void {
