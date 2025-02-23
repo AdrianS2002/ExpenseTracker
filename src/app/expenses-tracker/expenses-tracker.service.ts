@@ -81,6 +81,19 @@ export class ExpensesTrackerService {
     ).subscribe();
   }
 
+  deleteExpense(expenseId: string): void {
+    const userData = this.getUserData();
+    if (!userData) return;
+
+    this.databaseService.deleteExpense(userData.id, expenseId).pipe(
+      tap(() => this.fetchExpensesForSelectedDay()),
+      catchError((error) => {
+        console.error('Failed to delete expense:', error);
+        return of(null);
+      })
+    ).subscribe();
+  }
+
   // Private methods
   private initializeService(): void {
     this.generateDayToDateMap();
@@ -101,7 +114,7 @@ export class ExpensesTrackerService {
         console.error('Failed to fetch expenses:', error);
         return of([]);
       })
-    ).subscribe(expenses => this.expenses.set(expenses));
+    ).subscribe(expenses => {this.expenses.set(expenses); console.log(expenses)});
   }
 
   private fetchExpenseCategories(): void {

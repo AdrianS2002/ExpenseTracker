@@ -1,4 +1,5 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { ExpensesTrackerService } from '../../expenses-tracker.service';
 
 @Component({
   selector: 'app-expense',
@@ -8,7 +9,10 @@ import { Component, input } from '@angular/core';
   styleUrl: './expense.component.css'
 })
 export class ExpenseComponent {
-  amount = input();
-  name = input();
-  category = input();
+  expenseTrackerService = inject(ExpensesTrackerService);
+
+  id = input<string>();
+  amount = input<number>();
+  name = input<string>();
+  category = input<string>();
 }

@@ -4,5 +4,5 @@
       <span class="expense-category">{{category()}}</span>
     </div>
     <div class="expense-amount">{{amount()}}</div>
-    <button class="delete-button">×</button>
+    <button class="delete-button" (click)="expenseTrackerService.deleteExpense(id()!)">×</button>
 </div>
