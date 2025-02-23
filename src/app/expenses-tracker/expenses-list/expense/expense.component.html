@@ -3,6 +3,6 @@
       <span class="expense-name">{{name()}}</span>
       <span class="expense-category">{{category()}}</span>
     </div>
-    <div class="expense-amount">{{amount()}}</div>
+    <div class="expense-amount">{{amount()}} $</div>
     <button class="delete-button" (click)="expenseTrackerService.deleteExpense(id()!)">×</button>
 </div>

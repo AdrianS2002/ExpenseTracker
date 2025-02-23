@@ -19,9 +19,10 @@ export class ExpensesTrackerService {
   private readonly databaseService = inject(DatabaseService);
 
   // Core state
-  private readonly selectedDay = signal<DayOfWeek>('Sunday');
-  private readonly expenseCategories = signal<Category[]>([]);
-  private readonly expenses = signal<Expense[]>([]);
+  private selectedDay = signal<DayOfWeek>('Sunday');
+  private expenseCategories = signal<Category[]>([]);
+  private expenses = signal<Expense[]>([]);
+  private totalAmount = signal<number>(0);
 
   private readonly dayToDateMap = this.generateDayToDateMap();
   
@@ -50,6 +51,14 @@ export class ExpensesTrackerService {
   getUnavailableDays(): DayOfWeek[] {
     const currentDay = DAY_NUMBER_AMERICAN_TO_EUROPEAN[new Date().getDay()];
     return DAYS_OF_WEEK.slice(currentDay + 1);
+  }
+
+  getTotalAmount(): Signal<number> {
+    return this.totalAmount.asReadonly();
+  }
+
+  setTotalAmount(amount: number): void {
+    this.totalAmount.set(amount);
   }
 
   setSelectedDay(day: DayOfWeek): void {
@@ -114,7 +123,7 @@ export class ExpensesTrackerService {
         console.error('Failed to fetch expenses:', error);
         return of([]);
       })
-    ).subscribe(expenses => {this.expenses.set(expenses); console.log(expenses)});
+    ).subscribe(expenses => {this.expenses.set(expenses); this.computeTotalAmount(expenses)});
   }
 
   private fetchExpenseCategories(): void {
@@ -157,6 +166,10 @@ export class ExpensesTrackerService {
     });
 
     return map;
+  }
+
+  private computeTotalAmount(expenses: Expense[]): void {
+    this.totalAmount.set(expenses.reduce((total, expense) => total + expense.amount, 0));
   }
 
   private formatDate(date: Date): string {
