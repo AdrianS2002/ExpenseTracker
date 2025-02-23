@@ -19,6 +19,8 @@ export class AddExpenseComponent {
       categoryId: new FormControl('', Validators.required)
     });
 
+    showForm = false;
+
     onSubmit() {
       console.log("Form values:", this.expenseForm.value);
 

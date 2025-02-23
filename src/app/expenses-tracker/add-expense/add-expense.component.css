@@ -10,6 +10,14 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+.add-expense-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
 .expense-input-container {
     gap: 1.5rem;
 }
@@ -113,6 +121,12 @@
 
 .button-icon {
     font-size: 1.2rem;
+}
+
+.error {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 /* Input validation states */
