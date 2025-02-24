@@ -1,0 +1,10 @@
+.app-footer {
+    background-color: var(--secondary-bg);
+    padding: var(--padding-md);
+    color: var(--text-color);
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  

@@ -1,0 +1,22 @@
+.app-sidebar {
+    background-color: var(--primary-bg);
+    padding: var(--padding-md);
+    width: 200px;
+    min-height: 100vh;
+    color: var(--text-color);
+  }
+  
+  .app-sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .app-sidebar li {
+    margin-bottom: var(--padding-md);
+  }
+  
+  .app-sidebar a {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+  

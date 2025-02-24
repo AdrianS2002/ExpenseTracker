@@ -1,6 +1,11 @@
 <div id="app-root">
-  <div id="content">
-    <!-- <router-outlet></router-outlet> -->
-     <app-expenses-tracker></app-expenses-tracker>
+  <app-header></app-header>
+  <div id="content" class="main-content">
+    <app-sidebar></app-sidebar>
+    <div class="content-area">
+      <app-expenses-tracker></app-expenses-tracker>
+      <!-- Alternatively, use <router-outlet></router-outlet> if you're routing to different views -->
+    </div>
   </div>
+  <app-footer></app-footer>
 </div>

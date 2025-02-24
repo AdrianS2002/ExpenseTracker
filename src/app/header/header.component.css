@@ -1,0 +1,7 @@
+.app-header {
+    background-color: var(--secondary-bg);
+    padding: var(--padding-md);
+    color: var(--text-color);
+    text-align: center;
+  }
+  
