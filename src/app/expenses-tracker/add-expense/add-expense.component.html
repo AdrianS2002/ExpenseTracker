@@ -41,7 +41,7 @@
         <!-- Category -->
         <div class="input-group">
           <label for="category">Category</label>
-          <select formControlName="categoryId" required>
+          <select class="modern-dropdown" formControlName="categoryId" required>
             <option value="" disabled selected>Choose category...</option>
             @for (category of expensesTrackerService.getExpenseCategories()(); track category.id) {
               <option [value]="category.id">{{ category.name }}</option>

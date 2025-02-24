@@ -129,6 +129,13 @@
     font-weight: 500;
 }
 
+.modern-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    font-size: large;
+}
+
 /* Input validation states */
 .expense-input:invalid:not(:placeholder-shown) {
     border-color: #ff6b6b;
