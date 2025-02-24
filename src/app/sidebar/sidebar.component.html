@@ -1,18 +1,12 @@
-<!-- Hamburger Menu Icon (visible on mobile) -->
-<div class="hamburger" (click)="toggleSidebar()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  
-  <!-- Sidebar Navigation -->
-  <aside class="app-sidebar" [class.active]="isActive">
+<!-- src/app/sidebar/sidebar.component.html -->
+<aside class="app-sidebar">
     <nav>
       <ul>
-        <li><a routerLink="/home" (click)="toggleSidebar()">Home</a></li>
-        <li><a routerLink="/auth" (click)="toggleSidebar()">Auth</a></li>
-        <li><a routerLink="/forgot-password" (click)="toggleSidebar()">Forgot Password</a></li>
-        <li><a routerLink="/summary" (click)="toggleSidebar()">Summary</a></li>
+        <li><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/expenses">Expenses Tracker</a></li>
+        <li><a routerLink="/auth">Auth</a></li>
+        <li><a routerLink="/forgot-password">Forgot Password</a></li>
+        <li><a routerLink="/summary">Summary</a></li>
       </ul>          
     </nav>
   </aside>
