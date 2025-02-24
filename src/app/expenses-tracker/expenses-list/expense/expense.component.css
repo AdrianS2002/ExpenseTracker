@@ -1,0 +1,45 @@
+ 
+  .expense-item {
+    max-width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+  }
+  
+  .expense-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .expense-name {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .expense-category {
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+  .expense-amount {
+    margin: 0 15px;
+    color: #dc3545;
+    font-weight: bold;
+  }
+  
+  .delete-button {
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 5px;
+  }
+  
+  .delete-button:hover {
+    color: #bb2d3b;
+  }
