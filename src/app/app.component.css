@@ -1,0 +1,16 @@
+/* Container for the sidebar and content */
+.main-content {
+    display: flex;
+    gap: var(--padding-md);
+  }
+  
+  app-sidebar {
+    width: 200px;  /* Adjust as needed */
+    flex-shrink: 0;  /* Prevent it from shrinking */
+  }
+  
+  .content-area {
+    flex: 1;
+    padding: var(--padding-md);
+  }
+  
