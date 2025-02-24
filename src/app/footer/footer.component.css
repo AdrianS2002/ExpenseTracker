@@ -1,10 +1,16 @@
-.app-footer {
-    background-color: var(--secondary-bg);
-    padding: var(--padding-md);
-    color: var(--text-color);
-    text-align: center;
-    position: fixed;
-    bottom: 0;
+:host {
+    display: block;
     width: 100%;
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+    padding: var(--padding-md);
+    text-align: center;
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.15);
+    margin-top: auto;
+  }
+  
+  :host p {
+    margin: 0;
+    font-size: 0.9rem;
   }
   

@@ -1,22 +1,30 @@
-.app-sidebar {
+:host {
+    display: block;
+    width: 200px; /* fixed width for the sidebar */
     background-color: var(--primary-bg);
-    padding: var(--padding-md);
-    width: 200px;
-    min-height: 100vh;
     color: var(--text-color);
+    padding: var(--padding-md);
+    min-height: 100vh;
   }
   
-  .app-sidebar ul {
+  nav ul {
     list-style: none;
     padding: 0;
+    margin: 0;
   }
   
-  .app-sidebar li {
+  nav ul li {
     margin-bottom: var(--padding-md);
   }
   
-  .app-sidebar a {
+  nav ul li a {
     color: var(--text-color);
     text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    color: var(--button-bg);
   }
   

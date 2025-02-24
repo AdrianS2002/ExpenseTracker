@@ -1,7 +1,36 @@
-.home-container {
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     padding: var(--padding-lg);
     background-color: var(--primary-bg);
     color: var(--text-color);
     text-align: center;
+  }
+  
+  .home-container {
+    max-width: 800px;
+    margin: 1rem;
+  }
+  
+  /* Media Queries from your theme */
+  @media (max-width: 768px) {
+    :host {
+      padding: var(--padding-md);
+    }
+    .home-container {
+      max-width: 90%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    :host h2 {
+      font-size: 1.5rem;
+    }
+    :host p {
+      font-size: 0.9rem;
+    }
   }
   
