@@ -54,11 +54,13 @@ export class DatabaseService {
         );
     }
 
-    getCategories(userId: string): Observable<Category[]> {
-        const categoryRef = collection(this.firestore, `users/${userId}/categories`);
-        return collectionData(categoryRef, { idField: 'id' }) as Observable<Category[]>;
+      getCategories(userId: string): Observable<Category[]> {
+        const categoryRef = collection(this.firestore, "users", userId, "categories");
+        const querySnapshot = getDocs(categoryRef);
+        return from(querySnapshot).pipe(
+            map((querySnapshot) => querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Category)))
+        );
     }
-
    
     updateCategory(userId: string, categoryId: string, updatedName: string): Observable<void> {
         const categoryRef = doc(this.firestore, `users/${userId}/categories/${categoryId}`);
@@ -73,7 +75,7 @@ export class DatabaseService {
 
     //CRUD PE EXPENSES
 
-    addExpense(userId: string, expense: Expense): Observable<void> {
+    addExpense(userId: string, expense: Omit<Expense, 'id'>): Observable<void> {
         const expensesRef = collection(this.firestore, `users/${userId}/expenses`);
         return from(addDoc(expensesRef, expense)).pipe(
             map(() => console.log("Expense added successfully!"))
@@ -83,6 +85,16 @@ export class DatabaseService {
     getExpenses(userId: string): Observable<Expense[]> {
         const expensesRef = collection(this.firestore, `users/${userId}/expenses`);
         return collectionData(expensesRef, { idField: 'id' }) as Observable<Expense[]>;
+    }
+
+    getExpensesForDate(userId: string, date: string): Observable<Expense[]> {
+        const expensesRef = collection(this.firestore, "users", userId, "expenses");
+        const q = query(expensesRef, where("date", "==", date));
+        const querySnapshot = getDocs(q);
+        return from(querySnapshot).pipe(
+            map((querySnapshot) => querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Expense))
+            )
+        );
     }
     
     getWeeklyExpenses(userId: string, startDate: string, endDate: string): Observable<Expense[]> {
