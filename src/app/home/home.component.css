@@ -1,0 +1,7 @@
+.home-container {
+    padding: var(--padding-lg);
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    text-align: center;
+  }
+  
