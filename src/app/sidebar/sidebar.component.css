@@ -1,81 +1,80 @@
 :host {
-    display: block;
-    box-sizing: border-box;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* Sidebar Base Styles */
+.app-sidebar {
+  width: 200px; /* Fixed width */
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+  padding: var(--padding-md);
+  min-height: 100vh;
+  transition: transform 0.3s ease;
+  /* For desktop, show sidebar by default */
+  transform: translateX(0);
+}
+
+/* Navigation styling */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  margin-bottom: var(--padding-md);
+}
+
+nav ul li a {
+  display: block;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: var(--button-bg);
+}
+
+/* Hamburger Menu (hidden on desktop) */
+.hamburger {
+  display: none;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  /* Position sidebar off-canvas by default */
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    z-index: 1000;
   }
   
-  /* Sidebar Base Styles */
-  .app-sidebar {
-    width: 200px; /* Fixed width */
-    background-color: var(--secondary-bg);
-    color: var(--text-color);
-    padding: var(--padding-md);
-    min-height: 100vh;
-    transition: transform 0.3s ease;
-    /* For desktop, show sidebar by default */
+  /* When active, slide in */
+  .app-sidebar.active {
     transform: translateX(0);
   }
-  
-  /* Navigation styling */
-  nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  nav ul li {
-    margin-bottom: var(--padding-md);
-  }
-  
-  nav ul li a {
-    display: block;
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
-  
-  nav ul li a:hover {
-    color: var(--button-bg);
-  }
-  
-  /* Hamburger Menu (hidden on desktop) */
+
+  /* Hamburger menu icon visible on mobile */
   .hamburger {
-    display: none;
+    display: block;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    cursor: pointer;
   }
-  
-  /* Mobile Styles */
-  @media (max-width: 768px) {
-    /* Position sidebar off-canvas by default */
-    .app-sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      transform: translateX(-100%);
-      z-index: 1000;
-    }
-    
-    /* When active, slide in */
-    .app-sidebar.active {
-      transform: translateX(0);
-    }
-  
-    /* Hamburger menu icon visible on mobile */
-    .hamburger {
-      display: block;
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      z-index: 1100;
-      cursor: pointer;
-    }
-  
-    .hamburger span {
-      display: block;
-      width: 25px;
-      height: 3px;
-      background-color: var(--text-color);
-      margin: 5px 0;
-    }
+
+  .hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    margin: 5px 0;
   }
-  
+}
