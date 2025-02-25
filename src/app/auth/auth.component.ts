@@ -40,7 +40,7 @@ export class AuthComponent {
         next: (resData) => {
           console.log('Logged in:', resData);
           this.isLoading = false;
-          this.router.navigate(['/expense-tracker']);                       //setezi ruta unde vrei sa mearga dupa login
+          this.router.navigate(['/summary']);                       //setezi ruta unde vrei sa mearga dupa login
         },
         error: (errorMessage) => {
           console.log(errorMessage);

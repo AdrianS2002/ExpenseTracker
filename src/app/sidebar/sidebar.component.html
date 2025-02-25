@@ -18,4 +18,9 @@
       </ng-template>
     </ul>
   </nav>
+
+  <div class="user-info" *ngIf="isLoggedIn">
+    <p class="user-email">Logged in as: {{ userEmail }}</p>
+    <button class="logout-button" (click)="onLogout(); toggleSidebar()">Logout</button>
+  </div>
 </aside>
