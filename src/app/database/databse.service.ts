@@ -47,31 +47,42 @@ export class DatabaseService {
 
 //CRUD PE CATEGORIE
 
-    addCategory(userId: string, category: Category): Observable<void> {
-        const categoryRef = collection(this.firestore, `users/${userId}/categories`);
-        return from(addDoc(categoryRef, category)).pipe(
-            map(() => console.log("Category added successfully!"))
-        );
-    }
+addCategory(userId: string, category: Omit<Category, 'id'>): Observable<string> {
+    const categoryRef = collection(this.firestore, `users/${userId}/categories`);
 
-      getCategories(userId: string): Observable<Category[]> {
-        const categoryRef = collection(this.firestore, "users", userId, "categories");
-        const querySnapshot = getDocs(categoryRef);
-        return from(querySnapshot).pipe(
-            map((querySnapshot) => querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Category)))
-        );
-    }
-   
-    updateCategory(userId: string, categoryId: string, updatedName: string): Observable<void> {
-        const categoryRef = doc(this.firestore, `users/${userId}/categories/${categoryId}`);
-        return from(updateDoc(categoryRef, { name: updatedName }));
-    }
+    return from(addDoc(categoryRef, { name: category.name })).pipe(
+        tap((docRef) => console.log("Category added successfully with ID:", docRef.id)),
+        tap((docRef) => {
+            const categoryDoc = doc(this.firestore, `users/${userId}/categories/${docRef.id}`);
+            updateDoc(categoryDoc, { id: docRef.id });
+        }),
+        map((docRef) => docRef.id)
+    );
+}
 
+getCategories(userId: string): Observable<Category[]> {
+    const categoryRef = collection(this.firestore, `users/${userId}/categories`);
+    return collectionData(categoryRef, { idField: 'id' }) as Observable<Category[]>;
+}
+
+updateCategory(userId: string, categoryId: string, updatedName: string): Observable<void> {
+    const categoryRef = doc(this.firestore, `users/${userId}/categories/${categoryId}`);
+    return from(updateDoc(categoryRef, { name: updatedName }));
+}
+
+deleteCategory(userId: string, categoryId: string): Observable<void> {
+    const categoryRef = doc(this.firestore, `users/${userId}/categories/${categoryId}`);
+    return from(deleteDoc(categoryRef)).pipe(
+        tap(() => console.log(`Category ${categoryId} deleted successfully!`))
+    );
+}
+    // getIcons(): Observable<Record<string, string>> {
+    //     return this.http.get<Record<string, string>>('category-icons.json');
+    //   }
     
-    deleteCategory(userId: string, categoryId: string): Observable<void> {
-        const categoryRef = doc(this.firestore, `users/${userId}/categories/${categoryId}`);
-        return from(deleteDoc(categoryRef));
-    }
+    //   getColors(): Observable<Record<string, string>> {
+    //     return this.http.get<Record<string, string>>('category-colors.json');
+    //   }
 
     //CRUD PE EXPENSES
 

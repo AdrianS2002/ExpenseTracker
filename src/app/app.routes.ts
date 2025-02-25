@@ -6,6 +6,7 @@ import { ExpensesTrackerComponent } from './expenses-tracker/expenses-tracker.co
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { SummaryComponent } from './summary/summary.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,5 +15,6 @@ export const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'summary', component: SummaryComponent },
-  { path: '**', component: NotFoundComponent }
+  { path: '**', component: NotFoundComponent },
+  {path: 'categories', component: CategoriesComponent},
 ];
