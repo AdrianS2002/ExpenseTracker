@@ -7,6 +7,9 @@ import { provideHttpClient } from '@angular/common/http';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
+// Import the Auth provider
+import { provideAuth, getAuth } from '@angular/fire/auth';
+
 const firebaseConfig = {
   apiKey: "AIzaSyAG0p3cIuFKvviUfmOAk6CvcdMIW-4IsPE",
   authDomain: "expensetracker-caf73.firebaseapp.com",
@@ -23,5 +26,7 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore()),
+    // Provide the Auth service
+    provideAuth(() => getAuth()),
   ]
 }).catch(err => console.error(err));

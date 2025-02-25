@@ -7,6 +7,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { SummaryComponent } from './summary/summary.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './auth.guard';
+import { CategoriesComponent } from './categories/categories.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,6 +16,6 @@ export const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'summary', component: SummaryComponent, canActivate: [AuthGuard] },
-  {path: 'categories', component: CategoriesComponent ,canActivate: [AuthGuard]},
+  { path: 'categories', component: CategoriesComponent, canActivate:[AuthGuard]},
   { path: '**', component: NotFoundComponent }
 ];

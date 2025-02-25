@@ -24,7 +24,7 @@ export class SidebarComponent implements OnDestroy {
     this.subscription = this.authService.user.subscribe((user: any) => {
       console.log('Sidebar user:', user);
       this.isLoggedIn = !!user;
-      this.userEmail = user && user.email ? user.email : 'No email available';
+      this.userEmail = user && user.emaiL ? user.emaiL : 'No email available';
     });
   }
 
