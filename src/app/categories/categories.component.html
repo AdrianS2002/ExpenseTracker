@@ -1,0 +1,72 @@
+<div class="category-container">
+    <h2>Categories</h2>
+  
+    <!-- Add Category Form -->
+    <div class="add-category-form">
+      <h3>Add Category</h3>
+      <form (ngSubmit)="addCategory()">
+        <label for="categoryName">Category Name:</label>
+        <input type="text" id="categoryName" [(ngModel)]="newCategoryName" name="categoryName" required />
+  
+        <label for="categoryIcon">Icon:</label>
+        <select id="categoryIcon" [(ngModel)]="newCategoryIcon" name="categoryIcon" required>
+          <option *ngFor="let icon of icons | keyvalue" [value]="icon.value">
+            <mat-icon>{{ icon.value }}</mat-icon> <!-- Display the icon next to its name -->
+          </option>
+        </select>
+  
+        <label for="categoryColor">Color:</label>
+        <select id="categoryColor" [(ngModel)]="newCategoryColor" name="categoryColor" required>
+          <option *ngFor="let color of colors | keyvalue" [value]="color.value">
+            {{ color.key }}
+          </option>
+        </select>
+  
+        <button type="submit" [disabled]="!newCategoryName || !newCategoryIcon || !newCategoryColor">Add Category</button>
+      </form>
+    </div>
+  
+    <!-- Categories List -->
+    <div class="category-list">
+      <h3>All Categories</h3>
+      <ul>
+        <li *ngFor="let category of categories">
+          <div class="category-item">
+            <span class="category-icon">
+              <mat-icon>{{ category.icon }}</mat-icon> <!-- Icon Display -->
+            </span>
+            <span class="category-name">{{ category.name }}</span>
+            <span class="category-color" [style.background-color]="category.color"></span>
+            <button (click)="startEdit(category)">Edit</button>
+            <button (click)="deleteCategory(category.id)">Delete</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Edit Category Form (Only visible when editing) -->
+    <div *ngIf="editCategoryId" class="edit-category-form">
+      <h3>Edit Category</h3>
+      <form (ngSubmit)="updateCategory()">
+        <label for="updatedCategoryName">Category Name:</label>
+        <input type="text" id="updatedCategoryName" [(ngModel)]="updatedCategoryName" name="updatedCategoryName" required />
+  
+        <label for="updatedCategoryIcon">Icon:</label>
+        <select id="updatedCategoryIcon" [(ngModel)]="updatedCategoryIcon" name="updatedCategoryIcon" required>
+          <option *ngFor="let icon of icons | keyvalue" [value]="icon.value">
+            <mat-icon>{{ icon.value }}</mat-icon> <!-- Display icon preview -->
+          </option>
+        </select>
+  
+        <label for="updatedCategoryColor">Color:</label>
+        <select id="updatedCategoryColor" [(ngModel)]="updatedCategoryColor" name="updatedCategoryColor" required>
+          <option *ngFor="let color of colors | keyvalue" [value]="color.value">
+            {{ color.key }}
+          </option>
+        </select>
+  
+        <button type="submit" [disabled]="!updatedCategoryName || !updatedCategoryIcon || !updatedCategoryColor">Update Category</button>
+      </form>
+    </div>
+  </div>
+  

@@ -3,10 +3,11 @@ import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, getDoc, 
 import { catchError, from, map, Observable, tap, throwError } from "rxjs";
 import { Category } from "./models/category.model";
 import { Expense } from "./models/expenses.model";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({ providedIn: 'root' })
 export class DatabaseService {
-    constructor(private firestore: Firestore) {}
+    constructor(private firestore: Firestore, private http: HttpClient) {}
 
     saveUserProfile(userId: string, email: string, hashedPassword: string): Observable<void> {
         const userRef = doc(this.firestore, `users/${userId}`);
@@ -47,12 +48,12 @@ export class DatabaseService {
 
 //CRUD PE CATEGORIE
 
-    addCategory(userId: string, category: Category): Observable<void> {
-        const categoryRef = collection(this.firestore, `users/${userId}/categories`);
-        return from(addDoc(categoryRef, category)).pipe(
-            map(() => console.log("Category added successfully!"))
-        );
-    }
+addCategory(userId: string, category: Category): Observable<void> {
+    const categoryRef = collection(this.firestore, `users/${userId}/categories`);
+    return from(addDoc(categoryRef, category)).pipe(
+      map(() => console.log("Category added successfully!"))
+    );
+  }
 
       getCategories(userId: string): Observable<Category[]> {
         const categoryRef = collection(this.firestore, "users", userId, "categories");
@@ -62,16 +63,16 @@ export class DatabaseService {
         );
     }
    
-    updateCategory(userId: string, categoryId: string, updatedName: string): Observable<void> {
-        const categoryRef = doc(this.firestore, `users/${userId}/categories/${categoryId}`);
-        return from(updateDoc(categoryRef, { name: updatedName }));
-    }
+    // updateCategory(userId: string, categoryId: string, updatedName: string): Observable<void> {
+    //     const categoryRef = doc(this.firestore, `users/${userId}/categories/${categoryId}`);
+    //     return from(updateDoc(categoryRef, { name: updatedName }));
+    // }
 
     
-    deleteCategory(userId: string, categoryId: string): Observable<void> {
-        const categoryRef = doc(this.firestore, `users/${userId}/categories/${categoryId}`);
-        return from(deleteDoc(categoryRef));
-    }
+    // deleteCategory(userId: string, categoryId: string): Observable<void> {
+    //     const categoryRef = doc(this.firestore, `users/${userId}/categories/${categoryId}`);
+    //     return from(deleteDoc(categoryRef));
+    // }
 
     //CRUD PE EXPENSES
 
