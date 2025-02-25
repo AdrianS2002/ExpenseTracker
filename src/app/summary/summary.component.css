@@ -24,29 +24,43 @@
   font-family: var(--font-primary);
 }
 
-/* Summary Page Container */
-.summary-page {
+/* Host container: full-screen, centered, uses secondary background */
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   padding: var(--padding-lg);
-  background-color: var(--primary-bg);
+  background-color: var(--secondary-bg);
   color: var(--text-color);
+  text-align: center;
+}
+
+/* Container for content with max width similar to home container */
+.summary-container {
+  max-width: 800px;
+  margin: 1rem;
+  width: 100%;
 }
 
 /* Page Title */
-.summary-page h1 {
-  text-align: center;
+.summary-container h1 {
   margin-bottom: var(--padding-md);
 }
 
-/* Summary Element */
+/* Summary Element: a styled box for displaying total */
 .summary-element {
   display: block;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   padding: var(--padding-md);
-  background-color: var(--secondary-bg);
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  margin-bottom: var(--padding-md);
 }
 
-/* Expense List Styling */
+/* Optional: if you keep an expense list in the future */
 .expense-list {
   list-style: none;
   padding: 0;
@@ -60,3 +74,23 @@
 .expense-list li:last-child {
   border-bottom: none;
 }
+
+/* Media Queries */
+@media (max-width: 768px) {
+  :host {
+    padding: var(--padding-md);
+  }
+  .summary-container {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  :host h1 {
+    font-size: 1.5rem;
+  }
+  :host p {
+    font-size: 0.9rem;
+  }
+}
+  
