@@ -5,7 +5,6 @@ import { ExpensesTrackerComponent } from './expenses-tracker/expenses-tracker.co
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
-import { routes } from './app.routes';
 
 @Component({
   selector: 'app-root',
@@ -22,4 +21,11 @@ import { routes } from './app.routes';
 })
 export class AppComponent {
   title = 'ExpenseTracker';
+
+  isSidebarOpen = false;
+
+  toggleSidebar() {
+    console.log('sidbar open')
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
 }

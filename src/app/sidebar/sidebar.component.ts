@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -12,24 +12,29 @@ import { AuthService } from '../auth/auth.service'; // Adjust path if needed
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnDestroy {
-  isActive = false;
+  @Input() isActive = false;     // Bound by the parent: [isActive]="isSidebarOpen"
+  @Output() closeSidebar = new EventEmitter<void>(); // To request closing the sidebar
+
   isLoggedIn = false;
   userEmail = '';
   private subscription: Subscription;
 
   constructor(private authService: AuthService) {
+    // Listen for user changes
     this.subscription = this.authService.user.subscribe((user: any) => {
+      console.log('Sidebar user:', user);
       this.isLoggedIn = !!user;
-      this.userEmail = user ? user.email : '';
+      this.userEmail = user && user.email ? user.email : 'No email available';
     });
   }
 
-  toggleSidebar(): void {
-    this.isActive = !this.isActive;
+  onLinkClick(): void {
+    this.closeSidebar.emit();
   }
 
   onLogout(): void {
     this.authService.logout();
+    this.closeSidebar.emit();
   }
 
   ngOnDestroy(): void {

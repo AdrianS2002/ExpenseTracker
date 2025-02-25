@@ -1,16 +1,31 @@
-/* Container for the sidebar and content */
+/* Desktop Layout */
 .main-content {
-    display: flex;
-    gap: var(--padding-md);
+  display: flex; /* side-by-side layout on desktop */
+  margin: 0;
+  padding: 0;
+}
+
+app-sidebar {
+  width: 200px; /* fixed sidebar width on desktop */
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.content-area {
+  flex: 1;
+  margin: 0;
+  padding: var(--padding-md); /* adjust as you prefer */
+}
+
+/* Mobile Overrides */
+@media (max-width: 768px) {
+  .main-content {
+    display: block; /* let content-area take full width on mobile */
   }
-  
-  app-sidebar {
-    width: 200px;  /* Adjust as needed */
-    flex-shrink: 0;  /* Prevent it from shrinking */
-  }
-  
+
   .content-area {
-    flex: 1;
+    width: 100%;
     padding: var(--padding-md);
   }
-  
+}
