@@ -1,7 +1,10 @@
 <div id="app-root">
-  <app-header></app-header>
+  <app-header (toggleSidebar)="toggleSidebar()"></app-header>
   <div id="content" class="main-content">
-    <app-sidebar></app-sidebar>
+    <app-sidebar
+      [isActive]="isSidebarOpen"
+      (closeSidebar)="isSidebarOpen = false">
+    </app-sidebar>
     <div class="content-area">
       <router-outlet></router-outlet>
     </div>
