@@ -1,13 +1,35 @@
-<!-- src/app/sidebar/sidebar.component.html -->
-<aside class="app-sidebar">
-    <nav>
-      <ul>
-        <li><a routerLink="/home">Home</a></li>
-        <li><a routerLink="/expenses">Expenses Tracker</a></li>
-        <li><a routerLink="/auth">Auth</a></li>
-        <li><a routerLink="/forgot-password">Forgot Password</a></li>
-        <li><a routerLink="/summary">Summary</a></li>
-      </ul>          
-    </nav>
-  </aside>
-  
+<!-- Optional overlay for mobile view -->
+<div class="sidebar-overlay" [class.active]="isActive" (click)="onLinkClick()"></div>
+
+<!-- Sidebar navigation -->
+<aside class="app-sidebar" [class.active]="isActive">
+  <nav>
+    <ul>
+      <li>
+        <a routerLink="/home" (click)="onLinkClick()">Home</a>
+      </li>
+      <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+        <li>
+          <a routerLink="/expenses" (click)="onLinkClick()">Expenses Tracker</a>
+        </li>
+        <li>
+          <a routerLink="/summary" (click)="onLinkClick()">Summary</a>
+        </li>
+      </ng-container>
+      <ng-template #notLoggedIn>
+        <li>
+          <a routerLink="/auth" (click)="onLinkClick()">Auth</a>
+        </li>
+        <li>
+          <a routerLink="/forgot-password" (click)="onLinkClick()">Forgot Password</a>
+        </li>
+      </ng-template>
+    </ul>
+  </nav>
+
+  <!-- User Info and Logout -->
+  <div class="user-info" *ngIf="isLoggedIn">
+    <p class="user-email">Logged in as: {{ userEmail }}</p>
+    <button class="logout-button" (click)="onLogout()">Logout</button>
+  </div>
+</aside>
