@@ -29,3 +29,15 @@ app-sidebar {
     padding: var(--padding-md);
   }
 }
+
+
+#app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full viewport height */
+}
+
+.main-content {
+  flex: 1; /* This pushes the footer to the bottom */
+  /* Add padding or margin as needed */
+}
