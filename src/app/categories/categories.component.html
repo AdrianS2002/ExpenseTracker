@@ -1,4 +1,4 @@
-<div class="category-list">
+<!-- <div class="category-list">
   <h3>All Categories</h3>
   <ul>
     <li *ngFor="let category of categories; trackBy: trackByCategory">
@@ -13,4 +13,13 @@
 <div class="add-category">
   <input [(ngModel)]="newCategoryName" placeholder="Enter category name" />
   <button class="btn-primary" (click)="addCategory()">Add Category</button>
+</div> -->
+
+<div>
+  <div>
+    <h2>Categories</h2>
+    <app-category-list></app-category-list>
+  </div>
+  <app-add-category></app-add-category>
 </div>
+
