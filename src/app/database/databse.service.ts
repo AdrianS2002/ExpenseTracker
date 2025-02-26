@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
-import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where, writeBatch } from "@angular/fire/firestore";
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc, where, writeBatch, orderBy, query, Query } from "@angular/fire/firestore";
 import { catchError, from, map, Observable, tap, throwError } from "rxjs";
 import { Category } from "./models/category.model";
 import { Expense } from "./models/expenses.model";
 
 @Injectable({ providedIn: 'root' })
 export class DatabaseService {
-    constructor(private firestore: Firestore) {}
+    constructor(private firestore: Firestore) {console.log('Firestore Instance:', firestore);}
 
     saveUserProfile(userId: string, email: string, hashedPassword: string): Observable<void> {
         const userRef = doc(this.firestore, `users/${userId}`);
@@ -60,10 +60,17 @@ addCategory(userId: string, category: Omit<Category, 'id'>): Observable<string> 
     );
 }
 
-getCategories(userId: string): Observable<Category[]> {
+    getCategories(userId: string): Observable<Category[]> {
+        console.log('Fetching categories for user ID:', userId);
     const categoryRef = collection(this.firestore, `users/${userId}/categories`);
-    return collectionData(categoryRef, { idField: 'id' }) as Observable<Category[]>;
-}
+    const categoryQuery: Query = query(categoryRef, orderBy('name'));
+    console.log('Query details:', categoryQuery);
+    return collectionData(categoryQuery, { idField: 'id' }) as Observable<Category[]>;
+    // const categoriesRef = collection(this.firestore, `users/${userId}/categories`);
+    // return collectionData(categoriesRef,{idField: 'id'}) as Observable<Category[]>; 
+  }
+  
+  
 
 updateCategory(userId: string, categoryId: string, updatedName: string): Observable<void> {
     const categoryRef = doc(this.firestore, `users/${userId}/categories/${categoryId}`);
