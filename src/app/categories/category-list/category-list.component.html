@@ -1,0 +1,13 @@
+<div class="categories-list">
+    @for (category of this.catgeoryService.getCategories()(); track category.id) {
+      <!-- <app-categories [id]="category.id" [name]="category.name""></app-categories> -->
+       <app-category [id]="category.id" [name]="category.name"></app-category>
+    }
+  
+    <!-- Total Categories Section -->
+    <div class="total-section">
+      <span>Total Categories:</span>
+      <span class="total-count">{{ catgeoryService.getCategories()().length }}</span>
+    </div>
+  </div>
+  
