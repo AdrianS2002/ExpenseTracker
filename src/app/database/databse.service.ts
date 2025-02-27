@@ -11,6 +11,7 @@ import {
   getDocs,
   orderBy,
   query,
+  runTransaction,
   setDoc,
   updateDoc,
   where,
@@ -89,15 +90,37 @@ export class DatabaseService {
     );
   }
 
-    getCategories(userId: string): Observable<Category[]> {
-        console.log('Fetching categories for user ID:', userId);
-    const categoryRef = collection(this.firestore, `users/${userId}/categories`);
-    const categoryQuery: Query = query(categoryRef, orderBy('name'));
-    console.log('Query details:', categoryQuery);
-    return collectionData(categoryQuery, { idField: 'id' }) as Observable<Category[]>;
-    // const categoriesRef = collection(this.firestore, `users/${userId}/categories`);
-    // return collectionData(categoriesRef,{idField: 'id'}) as Observable<Category[]>; 
-  }
+
+  getCategories(userId: string): Observable<Category[]> {
+    const categoriesRef = collection(this.firestore, `users/${userId}/categories`);
+
+    return from(
+        runTransaction(this.firestore, async (transaction) => {
+            const querySnapshot = await getDocs(categoriesRef);
+
+            const categories: Category[] = [];
+            for (const categoryDoc of querySnapshot.docs) {
+                const categoryRef = doc(this.firestore, `users/${userId}/categories/${categoryDoc.id}`);
+                const docSnap = await transaction.get(categoryRef);
+                if (docSnap.exists()) {
+                    categories.push({ id: docSnap.id, ...docSnap.data() } as Category);
+                }
+            }
+
+            return categories;
+        })
+    );
+}
+
+  //   getCategories(userId: string): Observable<Category[]> {
+  //       console.log('Fetching categories for user ID:', userId);
+  //   const categoryRef = collection(this.firestore, `users/${userId}/categories`);
+  //   const categoryQuery: Query = query(categoryRef, orderBy('name'));
+  //   console.log('Query details:', categoryQuery);
+  //   return collectionData(categoryQuery, { idField: 'id' }) as Observable<Category[]>;
+  //   // const categoriesRef = collection(this.firestore, `users/${userId}/categories`);
+  //   // return collectionData(categoriesRef,{idField: 'id'}) as Observable<Category[]>; 
+  // }
   
   
 

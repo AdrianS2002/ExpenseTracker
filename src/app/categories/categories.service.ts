@@ -16,7 +16,7 @@ export class CategoriesService {
   private categories = signal<Category[]>([]);
 
   constructor() {
-    this.fetchCategories();
+    this.fetchCategoriesInTransaction();
   }
 
   getCategories(): Signal<Category[]> {
@@ -30,7 +30,7 @@ export class CategoriesService {
     const category: Omit<Category, 'id'> = { name };
 
     this.databaseService.addCategory(userData.id, category).pipe(
-      tap(() => this.fetchCategories()),
+      tap(() => this.fetchCategoriesInTransaction()),  // ✅ Ensures UI updates
       catchError(error => {
         console.error('Failed to add category:', error);
         return of(null);
@@ -43,7 +43,7 @@ export class CategoriesService {
     if (!userData) return;
 
     this.databaseService.deleteCategory(userData.id, categoryId).pipe(
-      tap(() => this.fetchCategories()),
+      tap(() => this.fetchCategoriesInTransaction()),  // ✅ Ensures UI updates
       catchError(error => {
         console.error('Failed to delete category:', error);
         return of(null);
@@ -51,13 +51,13 @@ export class CategoriesService {
     ).subscribe();
   }
 
-  private fetchCategories(): void {
+  fetchCategoriesInTransaction(): void {
     const userData = this.getUserData();
     if (!userData) return;
 
     this.databaseService.getCategories(userData.id).pipe(
       catchError(error => {
-        console.error('Failed to fetch categories:', error);
+        console.error('Failed to fetch categories in transaction:', error);
         return of([]);
       })
     ).subscribe(categories => this.categories.set(categories));
