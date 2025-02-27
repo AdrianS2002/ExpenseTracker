@@ -42,10 +42,11 @@
   font-weight: bold;
   font-size: 1.5rem;
   border-radius: var(--border-radius);
+  color: white;
 }
 
 .total-amount {
-  color: var(--success-color, #28a745);
+  color: var(--button-bg);
   font-size: 1.2rem;
   font-weight: bold;
 }
