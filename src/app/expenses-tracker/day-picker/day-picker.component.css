@@ -66,13 +66,11 @@
   font-size: 0.9rem;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .day-picker-container {
-      padding: 15px;
-  }
-
-  .calendar-header h2 {
-      font-size: 1.2rem;
+    margin: 0px;
+    padding: 15px;
+    height: 100%;
   }
 
   .availableDay, .unavailableDay, .selectedDay {
@@ -80,7 +78,8 @@
       padding: 6px;
   }
 
-  .date {
-      padding: 8px;
+  .days-grid {
+    grid-template-columns: none;
+    grid-template-rows: repeat(7, 1fr);
   }
 }

@@ -8,3 +8,11 @@
   background: var(--secondary-bg);
   color: var(--secondary-text-color);
 }
+
+@media (max-width: 800px) {
+  .expense-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+  }
+}
