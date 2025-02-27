@@ -28,14 +28,20 @@
     font-weight: bold;
     color: #666;
     font-size: 0.9rem;
+    cursor: pointer;
   }
 
+  .availableDay:hover {
+    color: #383838;;
+  }
+  
   .unavailableDay {
     text-align: center;
     padding: 8px;
     font-weight: bold;
     color: red;
     font-size: 0.9rem;
+    cursor: not-allowed;
   }
 
   .selectedDay {
@@ -57,9 +63,4 @@
   
   .date:hover {
     background: #f0f0f0;
-  }
-  
-  .date.selected {
-    background: #007bff;
-    color: white;
   }
