@@ -1,4 +1,3 @@
-// src/app/summary/summary.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatabaseService } from '../database/databse.service';
@@ -14,7 +13,7 @@ import { map } from 'rxjs/operators';
   imports: []
 })
 export class SummaryComponent implements OnInit, OnDestroy {
-  totalAmount: number = 0;
+  totalAmount = 0;
   private userSub?: Subscription;
 
   constructor(
@@ -24,40 +23,60 @@ export class SummaryComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Subscribe to the auth state to get the user id and then fetch weekly expenses
-    this.userSub = this.authService.user.subscribe(user => {
-      if (user) {
-        const userId = user.id;
-        // Calculate start (Monday) and end (Sunday) of the current week
-        const now = new Date();
-        const dayOfWeek = now.getDay(); // 0 (Sun) to 6 (Sat)
-        const day = dayOfWeek === 0 ? 7 : dayOfWeek; // treat Sunday as 7
-        const diffToMonday = 1 - day;
-        const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diffToMonday);
-        monday.setHours(0, 0, 0, 0);
-        const sunday = new Date(monday);
-        sunday.setDate(monday.getDate() + 6);
-        sunday.setHours(23, 59, 59, 999);
-        const startDate = monday.toISOString();
-        const endDate = sunday.toISOString();
-
-        this.databaseService.getWeeklyExpenses(userId, startDate, endDate)
-          .pipe(
-            map(expenses => expenses.reduce((sum, expense) => sum + expense.amount, 0))
-          )
-          .subscribe(total => {
-            this.totalAmount = total;
-          });
+    // Subscribe to AuthService.user to get the user ID
+    this.userSub = this.authService.user.subscribe((user) => {
+      if (!user) {
+        console.log('User is not authenticated. Redirecting to login...');
+        this.router.navigate(['/auth']);
+        return;
       }
+      const userId = user.id;
+      // Calculate current week's Monday (start) and Sunday (end)
+      const [startDate, endDate] = this.getWeekDateRange();
+
+      // Fetch weekly expenses, then compute the total
+      this.databaseService.getWeeklyExpenses(userId, startDate, endDate)
+        .pipe(map(expenses => expenses.reduce((sum, expense) => sum + expense.amount, 0)))
+        .subscribe({
+          next: (sum) => {
+            this.totalAmount = sum;
+            console.log('Weekly total:', sum);
+          },
+          error: (error) => {
+            console.error('Failed to load weekly expenses:', error);
+          }
+        });
     });
   }
 
-  // Method to navigate to the expenses page
+  // Optional: navigate to expenses page
   navigateToExpenses(): void {
     this.router.navigate(['/expenses']);
   }
 
   ngOnDestroy(): void {
     this.userSub?.unsubscribe();
+  }
+
+  /**
+   * Helper to get the current week's date range.
+   * Monday (start) at 00:00:00 -> Sunday (end) at 23:59:59
+   */
+  private getWeekDateRange(): [string, string] {
+    const now = new Date();
+    const dayOfWeek = now.getDay(); // 0 (Sun) to 6 (Sat)
+    const day = dayOfWeek === 0 ? 7 : dayOfWeek; // treat Sunday as 7
+    const diffToMonday = 1 - day;
+
+    // Monday at 00:00:00
+    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diffToMonday);
+    monday.setHours(0, 0, 0, 0);
+
+    // Sunday at 23:59:59
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+    sunday.setHours(23, 59, 59, 999);
+
+    return [monday.toISOString(), sunday.toISOString()];
   }
 }
