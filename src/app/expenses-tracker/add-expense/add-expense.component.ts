@@ -27,5 +27,9 @@ export class AddExpenseComponent {
       this.expensesTrackerService.addExpense(this.expenseForm.value.name!, 
         Number(this.expenseForm.value.amount!),
         this.expenseForm.value.categoryId!);
+
+      this.expenseForm.reset();
+      this.expenseForm.patchValue({ categoryId: '' });
+      this.showForm = false;
     }
 }
