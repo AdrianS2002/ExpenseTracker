@@ -13,5 +13,13 @@ import { AddCategoryComponent } from "./add-category/add-category.component";
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent{
+  selectedCategory: { id: string; name: string } | null = null;
 
+  openEditDialog(category: { id: string; name: string }) {
+    this.selectedCategory = category;
+  }
+
+  closeEditDialog() {
+    this.selectedCategory = null;
+  }
 }

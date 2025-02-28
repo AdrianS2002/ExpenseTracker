@@ -10,7 +10,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './add-category.component.css'
 })
 export class AddCategoryComponent {
-  catgeoryService = inject(CategoriesService);
+  categoryService = inject(CategoriesService);
 
   categoryForm = new FormGroup({
        name: new FormControl('', Validators.required)
@@ -21,6 +21,6 @@ export class AddCategoryComponent {
     onSubmit() {
       console.log("Form values:", this.categoryForm.value);
 
-      this.catgeoryService.addCategory(this.categoryForm.value.name!)
+      this.categoryService.addCategory(this.categoryForm.value.name!)
     }
 } 
