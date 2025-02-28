@@ -1,0 +1,43 @@
+/* Desktop Layout */
+.main-content {
+  display: flex; /* side-by-side layout on desktop */
+  margin: 0;
+  padding: 0;
+}
+
+app-sidebar {
+  width: 200px; /* fixed sidebar width on desktop */
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.content-area {
+  flex: 1;
+  margin: 0;
+  padding: var(--padding-md); /* adjust as you prefer */
+}
+
+/* Mobile Overrides */
+@media (max-width: 768px) {
+  .main-content {
+    display: block; /* let content-area take full width on mobile */
+  }
+
+  .content-area {
+    width: 100%;
+    padding: var(--padding-md);
+  }
+}
+
+
+#app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full viewport height */
+}
+
+.main-content {
+  flex: 1; /* This pushes the footer to the bottom */
+  /* Add padding or margin as needed */
+}

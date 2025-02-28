@@ -1,0 +1,67 @@
+<!-- add-expense.component.html -->
+ <div class="add-expense-wrapper">
+  @if (!showForm) {
+    <button (click)="showForm = true">➕ Add Expense</button>
+  }
+  @else {
+    <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+      <div class="add-expense">
+        <div class="expense-input-container">
+          <!-- Name -->
+          <div class="input-group">
+            <label for="expense-name">Expense Name</label>
+            <input type="text" 
+                   id="expense-name" 
+                   formControlName="name"
+                   placeholder="e.g. Office supplies"
+                   required>
+            @if (expenseForm.get('name')?.errors?.['required'] && expenseForm.get('name')?.touched) {
+              <div class="error">Name is required</div>
+            }
+          </div>
+    
+          <!-- Amount -->
+          <div class="input-group">
+            <label for="amount">Amount</label>
+            <div class="amount-input">
+              $ <input type="number" 
+                     id="amount" 
+                     formControlName="amount"
+                     placeholder="0.00"
+                     min="0"
+                     step="0.01"
+                     required>
+            </div>
+            @if (expenseForm.get('amount')?.invalid && expenseForm.get('amount')?.touched) {
+              <div class="error">Valid amount required</div>
+            }
+          </div>
+        </div>
+    
+        <!-- Category -->
+        <div class="input-group">
+          <label for="category">Category</label>
+          <select class="modern-dropdown" formControlName="categoryId" required>
+            <option value="" disabled selected>Choose category...</option>
+            @for (category of expensesTrackerService.getExpenseCategories()(); track category.id) {
+              <option [value]="category.id">{{ category.name }}</option>
+            }
+          </select>
+          @if (expenseForm.get('categoryId')?.errors?.['required'] && expenseForm.get('categoryId')?.touched) {
+            <div class="error">Category is required</div>
+          }
+        </div>
+    
+        <button type="submit" [disabled]="!expenseForm.valid">
+          ➕ Add Expense
+        </button>
+        <button type="button" 
+        class="cancel-button"
+        (click)="showForm = false">
+  Cancel
+</button>
+      </div>
+    </form>
+  }
+  
+ </div>
