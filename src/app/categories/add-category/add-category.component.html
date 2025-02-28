@@ -1,0 +1,56 @@
+<div class="add-category-wrapper">
+    @if (!showForm) {
+      <button (click)="showForm = true">➕ Add Category</button>
+    }
+    @else {
+      <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+        <div class="add-category">
+          <!-- Name -->
+          <div class="input-group">
+            <label for="category-name">Category Name</label>
+            <input type="text" 
+                   id="category-name" 
+                   formControlName="name"
+                   placeholder="e.g. Food, Transportation"
+                   required>
+            @if (categoryForm.get('name')?.errors?.['required'] && categoryForm.get('name')?.touched) {
+              <div class="error">Name is required</div>
+            }
+          </div>
+  
+          <!-- Icon -->
+          <!-- <div class="input-group">
+            <label for="category-icon">Icon</label>
+            <input type="text" 
+                   id="category-icon" 
+                   formControlName="icon"
+                   placeholder="e.g. fas fa-utensils"
+                   required>
+            @if (categoryForm.get('icon')?.errors?.['required'] && categoryForm.get('icon')?.touched) {
+              <div class="error">Icon is required</div>
+            }
+          </div> -->
+  
+          <!-- Color -->
+          <!-- <div class="input-group">
+            <label for="category-color">Color</label>
+            <input type="color" 
+                   id="category-color" 
+                   formControlName="color"
+                   required>
+            @if (categoryForm.get('color')?.errors?.['required'] && categoryForm.get('color')?.touched) {
+              <div class="error">Color is required</div>
+            }
+          </div> -->
+  
+          <button type="submit" [disabled]="!categoryForm.valid">
+            ➕ Add Category
+          </button>
+          <button type="button" class="cancel-button" (click)="showForm = false">
+            Cancel
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+  
