@@ -1,7 +1,11 @@
 <div class="expenses-list">
   <div class="list-container">
-    @for (expense of this.expenseTrackerService.getExpenses()(); track $index) {
+    @if (this.expenseTrackerService.getExpenses()().length > 0) {
+      @for (expense of this.expenseTrackerService.getExpenses()(); track $index) {
         <app-expense [id]="expense.id" [name]="expense.name" [category]="expense.categoryName" [amount]="expense.amount"></app-expense>
+      }
+    } @else {
+      <div class="no-expenses">No expenses for this day.</div>
     }
   </div>
   <!-- Total Section -->
