@@ -22,6 +22,8 @@ export class PieChartComponent implements OnInit, OnDestroy {
   private chart?: Chart;
   private userSub?: Subscription;
   isLoading = false;
+  errorMessage: string | null = null;
+
 
   constructor(
     private authService: AuthService,
@@ -30,8 +32,14 @@ export class PieChartComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     console.log('PieChartComponent initialized.');
-    this.isLoading = true; // setăm spinner-ul la start
+    if (!navigator.onLine) {
+      this.errorMessage = 'You are offline. Please check your internet connection.';
+      this.isLoading = false;
+      return;
+    }
+     // setăm spinner-ul la start
     // Abonare la user pentru a obține ID-ul
     this.userSub = this.authService.user.subscribe(user => {
       console.log('AuthService emitted user:', user);
@@ -90,11 +98,18 @@ export class PieChartComponent implements OnInit, OnDestroy {
           }
           console.log('Chart labels:', labels);
           console.log('Chart data:', data);
+
+          if (data.length === 0) {
+            this.errorMessage = 'No expense data available for the selected week.';
+            return;
+          }
+
           // Creează pie chart-ul
           this.createChart(labels, data);
         },
         err => {
           console.error('Error in forkJoin subscription:', err);
+          this.errorMessage = 'An error occurred while fetching chart data.';
           this.isLoading = false;
         }
       );
@@ -115,6 +130,7 @@ export class PieChartComponent implements OnInit, OnDestroy {
     const ctx = this.chartCanvas.nativeElement.getContext('2d');
     if (!ctx) {
       console.error('Could not retrieve 2D context from canvas.');
+      this.errorMessage = 'Chart cannot be displayed because canvas context is missing.';
       return;
     }
     const backgroundColors = generateColors(labels.length);
