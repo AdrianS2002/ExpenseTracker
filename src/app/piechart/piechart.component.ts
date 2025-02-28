@@ -8,7 +8,7 @@ import { AuthService } from '../auth/auth.service';
 import { DatabaseService } from '../database/databse.service';
 import { Category } from '../database/models/category.model';
 import { Expense } from '../database/models/expenses.model';
-import { generateColors, generateHoverColors } from './colorgenerator';
+import { generateColors, generateHoverColors } from './colorGenerator';
 
 @Component({
   selector: 'app-piechart',

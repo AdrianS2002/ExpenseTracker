@@ -2,7 +2,7 @@ export function  generateColors(count: number, saturation = 100, lightness = 50)
     const colors: string[] = [];
     const step = 360 / count;
     for (let i = 0; i < count; i++) {
-        const hue = Math.round(i * step);
+        const hue = Math.round(i * step) + 500;
         colors.push(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
       }
       return colors;
