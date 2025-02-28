@@ -12,7 +12,7 @@ export function  generateHoverColors(count: number, saturation = 70, lightness =
     const colors: string[] = [];
     const step = 360 / count;
     for (let i = 0; i < count; i++) {
-      const hue = Math.round(i * step);
+      const hue = Math.round(i * step)+ 500;
       colors.push(`hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`);
     }
     return colors;
