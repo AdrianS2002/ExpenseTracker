@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-
 import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, getDoc, getDocs, query, runTransaction, setDoc, updateDoc, where, writeBatch } from "@angular/fire/firestore";
 import { catchError, from, map, Observable, tap, throwError } from "rxjs";
 import { Category } from "./models/category.model";
@@ -44,7 +43,6 @@ export class DatabaseService {
 
   getUserProfile(userId: string): Observable<any> {
     const userRef = doc(this.firestore, `users/${userId}`);
-
     return from(getDoc(userRef)).pipe(
       map((docSnap) => (docSnap.exists() ? docSnap.data() : null))
     );
@@ -97,7 +95,17 @@ export class DatabaseService {
     );
 }
 
-
+  //   getCategories(userId: string): Observable<Category[]> {
+  //       console.log('Fetching categories for user ID:', userId);
+  //   const categoryRef = collection(this.firestore, `users/${userId}/categories`);
+  //   const categoryQuery: Query = query(categoryRef, orderBy('name'));
+  //   console.log('Query details:', categoryQuery);
+  //   return collectionData(categoryQuery, { idField: 'id' }) as Observable<Category[]>;
+  //   // const categoriesRef = collection(this.firestore, `users/${userId}/categories`);
+  //   // return collectionData(categoriesRef,{idField: 'id'}) as Observable<Category[]>; 
+  // }
+  
+  
 
   updateCategory(userId: string, categoryId: string, updatedName: string): Observable<void> {
     const categoryDocRef = doc(this.firestore, `users/${userId}/categories/${categoryId}`);
@@ -118,19 +126,15 @@ export class DatabaseService {
     const expensesRef = collection(this.firestore, `users/${userId}/expenses`);
     return from(addDoc(expensesRef, expense)).pipe(
       map(() => console.log('Expense added successfully!'))
-
     );
   }
 
   getExpenses(userId: string): Observable<Expense[]> {
-
     const expensesRef = collection(this.firestore, `users/${userId}/expenses`);
-
     return collectionData(expensesRef, { idField: 'id' }) as Observable<Expense[]>;
   }
 
   getExpensesForDate(userId: string, date: string): Observable<Expense[]> {
-
     const expensesRef = collection(this.firestore, `users/${userId}/expenses`);
     const q = query(expensesRef, where('date', '==', date));
     const querySnapshotPromise = getDocs(q);
@@ -141,17 +145,13 @@ export class DatabaseService {
   }
 
   getWeeklyExpenses(userId: string, startDate: string, endDate: string): Observable<Expense[]> {
-
     const expensesRef = collection(this.firestore, `users/${userId}/expenses`);
     const q = query(expensesRef, where('date', '>=', startDate), where('date', '<=', endDate));
-
     return collectionData(q, { idField: 'id' }) as Observable<Expense[]>;
   }
 
   updateExpense(userId: string, expenseId: string, updatedExpense: Partial<Expense>): Observable<void> {
-
     const expenseRef = doc(this.firestore, `users/${userId}/expenses/${expenseId}`);
-
     return from(updateDoc(expenseRef, updatedExpense));
   }
 
@@ -160,4 +160,3 @@ export class DatabaseService {
     return from(deleteDoc(expenseRef));
   }
 }
-
