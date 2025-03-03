@@ -5,7 +5,8 @@
 
 /* Desktop Sidebar */
 .app-sidebar {
-  position: fixed;
+  position: flex
+;
   width: 200px;
   background-color: var(--secondary-bg);
   color: var(--text-color);
