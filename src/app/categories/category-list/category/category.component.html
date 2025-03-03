@@ -1,8 +1,6 @@
-<div class="category-item">
-    <!-- [style.backgroundColor]="color()"> -->
-     <div class="category-details">
-       <!-- <span class="category-icon">{{ icon() }}</span> -->
-       <span class="category-name">{{ name() }}</span>
-     </div>
-     <button class="delete-button" (click)="catgeoryService.deleteCategory(id()!)">×</button>
-   </div>
+<div class="category-card">
+    <div class="category-details">
+        <span class="category-name">{{ name }}</span>
+    </div>
+    <!-- <button class="edit-button" (click)="onEdit()">✏️ Edit</button> -->
+</div>

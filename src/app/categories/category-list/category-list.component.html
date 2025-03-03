@@ -1,13 +1,28 @@
+<div class="total-section">
+    <span>Total Categories:</span>
+    <span class="total-count">{{ categoryService.getCategories()().length }}</span>
+</div>
 <div class="categories-list">
-    @for (category of this.catgeoryService.getCategories()(); track category.id) {
-      <!-- <app-categories [id]="category.id" [name]="category.name""></app-categories> -->
-       <app-category [id]="category.id" [name]="category.name"></app-category>
+    @for (category of this.categoryService.getCategories()(); track category.id) {
+        <div class="category-card">
+            <app-category 
+                [id]="category.id" 
+                [name]="category.name" 
+                (editCategory)="openEditDialog($event)">
+            </app-category>
+
+            <button 
+                class="edit-button" 
+                *ngIf="selectedCategory?.id !== category.id" 
+                (click)="openEditDialog(category)">
+                ✏️ Edit
+            </button>
+
+            <app-edit-category 
+                *ngIf="selectedCategory?.id === category.id" 
+                [category]="selectedCategory" 
+                (closeDialog)="closeEditDialog()">
+            </app-edit-category>
+        </div>
     }
-  
-    <!-- Total Categories Section -->
-    <div class="total-section">
-      <span>Total Categories:</span>
-      <span class="total-count">{{ catgeoryService.getCategories()().length }}</span>
-    </div>
-  </div>
-  
+</div>
