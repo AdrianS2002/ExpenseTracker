@@ -1,0 +1,25 @@
+<!-- <div class="category-list">
+  <h3>All Categories</h3>
+  <ul>
+    <li *ngFor="let category of categories; trackBy: trackByCategory">
+      <div class="category-item">
+        <span class="category-name">{{ category.name }}</span>
+        <button class="btn-secondary" (click)="deleteCategory(category.id!)">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="add-category">
+  <input [(ngModel)]="newCategoryName" placeholder="Enter category name" />
+  <button class="btn-primary" (click)="addCategory()">Add Category</button>
+</div> -->
+
+<div>
+  <div>
+    <h2>Categories</h2>
+    <app-category-list></app-category-list>
+  </div>
+  <app-add-category></app-add-category>
+</div>
+

@@ -4,5 +4,8 @@
     <span class="expense-category">{{ category }}</span>
   </div>
   <div class="expense-amount">{{ amount }} $</div>
-  <button class="delete-button" (click)="deleteExpense()">×</button>
+  <div class="expense-actions">
+    <button class="edit-button" (click)="editExpense()">Edit</button>
+    <button class="delete-button" (click)="deleteExpense()">×</button>
+  </div>
 </div>
