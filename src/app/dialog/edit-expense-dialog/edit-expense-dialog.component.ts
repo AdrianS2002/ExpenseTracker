@@ -1,14 +1,18 @@
 import { Component, Inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { ExpensesTrackerService } from '../../expenses-tracker/expenses-tracker.service';
+import { Category } from '../../database/models/category.model';
 
 export interface EditExpenseData {
   id: string;
   name: string;
-  category: string;
+  category: string; // holds the category id
   amount: number;
 }
 
@@ -16,11 +20,13 @@ export interface EditExpenseData {
   selector: 'app-edit-expense-dialog',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule
   ],
   template: `
     <h2 mat-dialog-title>Edit Expense</h2>
@@ -29,10 +35,16 @@ export interface EditExpenseData {
         <mat-label>Name</mat-label>
         <input matInput [(ngModel)]="data.name">
       </mat-form-field>
+      
       <mat-form-field appearance="fill">
         <mat-label>Category</mat-label>
-        <input matInput [(ngModel)]="data.category">
+        <mat-select [(ngModel)]="data.category">
+          <mat-option *ngFor="let cat of availableCategoriesValue" [value]="cat.id">
+            {{ cat.name }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
+      
       <mat-form-field appearance="fill">
         <mat-label>Amount</mat-label>
         <input type="number" matInput [(ngModel)]="data.amount">
@@ -59,8 +71,14 @@ export interface EditExpenseData {
 export class EditExpenseDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<EditExpenseDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: EditExpenseData
+    @Inject(MAT_DIALOG_DATA) public data: EditExpenseData,
+    private expensesTrackerService: ExpensesTrackerService
   ) {}
+
+  // Define a getter that calls the signal and returns its value (an array)
+  get availableCategoriesValue(): Category[] {
+    return this.expensesTrackerService.getExpenseCategories()();
+  }
 
   onCancel(): void {
     this.dialogRef.close();

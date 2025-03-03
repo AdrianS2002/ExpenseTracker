@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ExpensesTrackerService } from '../../expenses-tracker.service';
-import { ConfirmDialogComponent } from '../../../dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../dialog/confirm-dialog/confirm-dialog.component';
 import { EditExpenseDialogComponent, EditExpenseData } from '../../../dialog/edit-expense-dialog/edit-expense-dialog.component';
 
 @Component({
