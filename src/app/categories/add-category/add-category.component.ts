@@ -21,6 +21,9 @@ export class AddCategoryComponent {
     onSubmit() {
       console.log("Form values:", this.categoryForm.value);
 
-      this.categoryService.addCategory(this.categoryForm.value.name!)
+      this.categoryService.addCategory(this.categoryForm.value.name!);
+      this.categoryForm.reset();
+      this.categoryForm.markAsPristine();
+      this.categoryForm.markAsUntouched();
     }
 } 
