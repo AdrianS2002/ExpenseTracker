@@ -4,13 +4,14 @@ import { Subscription, forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { DatabaseService } from '../database/databse.service';
+import { PieChartComponent } from "../piechart/piechart.component";
 
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css'],
   standalone: true,
-  imports: []
+  imports: [PieChartComponent]
 })
 export class SummaryComponent implements OnInit, OnDestroy {
   totalAmount = 0; // Total spent during the week

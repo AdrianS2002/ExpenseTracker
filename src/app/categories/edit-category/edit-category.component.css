@@ -1,0 +1,42 @@
+.edit-category-dialog {
+    background-color: var(--input-text); /* Use global input background */
+    border: 1px solid var(--border-color); /* Use global border color */
+    border-radius: var(--border-radius); /* Use global border radius */
+    padding: var(--padding-md); /* Use global padding */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.5); 
+    color: var(--text-color);
+}
+
+.edit-category-title {
+    font-size: 1.5rem; /* Title size */
+    font-weight: bold; /* Bold title */
+    margin-bottom: 1rem; /* Space below the title */
+}
+
+.edit-category-input {
+    margin-bottom: 1rem; /* Space below each input */
+    font-size: 1rem; /* Input text size */
+    padding: var(--padding-md); /* Use global padding */
+    border: 2px solid var(--input-text); /* Use global input text color */
+    border-radius: var(--border-radius); /* Use global border radius */
+    width: 100%; /* Full width for inputs */
+}
+
+.edit-category-button {
+    background-color: var(--button-bg); /* Use global button background */
+    color: var(--text-color); /* Use global text color */
+    border: none; /* No border */
+    border-radius: var(--border-radius); /* Use global border radius */
+    padding: var(--padding-md) var(--padding-lg); /* Use global padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin: 0.25rem;
+}
+
+.edit-category-button:hover {
+    background-color: var(--button-hover-bg); /* Use global button hover background */
+}
+
+.actions{
+    display: flex;
+    justify-content: space-between;
+}
