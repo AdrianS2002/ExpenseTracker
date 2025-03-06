@@ -1,11 +1,8 @@
 <div class="expense-item">
-  <div class="expense-details">
-    <span class="expense-name">{{ name }}</span>
-    <span class="expense-category">{{ category }}</span>
-  </div>
-  <div class="expense-amount">{{ amount }} $</div>
-  <div class="expense-actions">
-    <button class="edit-button" (click)="editExpense()">Edit</button>
-    <button class="delete-button" (click)="deleteExpense()">×</button>
-  </div>
+    <div class="expense-details">
+      <span class="expense-name">{{name()}}</span>
+      <span class="expense-category">{{category()}}</span>
+    </div>
+    <div class="expense-amount">{{amount()}} $</div>
+    <button class="delete-button" (click)="expenseTrackerService.deleteExpense(id()!)">×</button>
 </div>
