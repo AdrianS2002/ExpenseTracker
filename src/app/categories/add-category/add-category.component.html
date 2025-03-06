@@ -1,0 +1,30 @@
+<div class="add-category-wrapper">
+    @if (!showForm) {
+      <button (click)="showForm = true">➕ Add Category</button>
+    }
+    @else {
+      <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+        <div class="add-category">
+          <!-- Name -->
+          <div class="input-group">
+            <label for="category-name">Category Name</label>
+            <input type="text" 
+                   id="category-name" 
+                   formControlName="name"
+                   placeholder="e.g. Food, Transportation"
+                   required>
+            @if (categoryForm.get('name')?.errors?.['required'] && categoryForm.get('name')?.touched) {
+              <div class="error">Name is required</div>
+            }
+          </div>
+          <button type="submit" class="add-btn" [disabled]="!categoryForm.valid">
+            ➕ Add Category
+          </button>
+          <button type="button" class="cancel-button add-btn" (click)="showForm = false">
+            Cancel
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+  
