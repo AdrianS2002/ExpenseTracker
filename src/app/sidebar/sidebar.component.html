@@ -26,6 +26,16 @@
             <i class="fas fa-tags"></i>
           </a>
         </li>
+        <li>
+          <a routerLink="/user-info" (click)="onLinkClick()" title="User info">
+            <i class="fas fa-user"></i>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/auth" (click)="onLogout()" title="Logout">
+            <i class="fas fa-sign-out-alt"></i>
+          </a>
+        </li>
       </ng-container>
       <ng-template #notLoggedIn>
         <li>
@@ -42,11 +52,10 @@
     </ul>
   </nav>
 
-  <!-- User Info and Logout -->
-  <div class="user-info" *ngIf="isLoggedIn">
+  <!-- <div class="user-info" *ngIf="isLoggedIn">
     <p class="user-email">Logged in as: {{ userEmail }}</p>
     <button class="logout-button" (click)="onLogout()" title="Logout">
       <i class="fas fa-sign-out-alt"></i>
     </button>
-  </div>
+  </div>  -->
 </aside>
