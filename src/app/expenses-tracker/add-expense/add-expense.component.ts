@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { DatabaseService } from '../../database/databse.service';
-import { ExpensesTrackerService } from '../expenses-tracker.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ExpensesTrackerService } from '../expenses-tracker.service';
 
 @Component({
   selector: 'app-add-expense',
@@ -11,18 +10,24 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './add-expense.component.css'
 })
 export class AddExpenseComponent {
-   expensesTrackerService = inject(ExpensesTrackerService);
+  expensesTrackerService = inject(ExpensesTrackerService);
 
-   expenseForm = new FormGroup({
-     name: new FormControl('', Validators.required),
-      amount: new FormControl('', Validators.required),
-      categoryId: new FormControl('', Validators.required)
-    });
+  expenseForm = new FormGroup({
+    name: new FormControl('', Validators.required),
+    amount: new FormControl('', Validators.required),
+    categoryId: new FormControl('', Validators.required)
+  });
 
-    showForm = false;
+  showForm = false;
 
-    onSubmit() {
-      console.log("Form values:", this.expenseForm.value);
+  onSubmit() {
+    console.log("Form values:", this.expenseForm.value);
+
+    this.expensesTrackerService.addExpense(
+      this.expenseForm.value.name!,
+      Number(this.expenseForm.value.amount!),
+      this.expenseForm.value.categoryId!
+    );
 
       this.expensesTrackerService.addExpense(this.expenseForm.value.name!, 
         Number(this.expenseForm.value.amount!),

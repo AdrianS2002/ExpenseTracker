@@ -1,0 +1,52 @@
+.add-category-wrapper {
+    margin: 1rem 0; /* Margin around the wrapper */
+}
+
+.add-category {
+    background-color: var(--secondary-bg); /* Use global input background */
+    border: 1px solid var(--border-color); /* Use global border color */
+    border-radius: var(--border-radius); /* Use global border radius */
+    padding: var(--padding-md); /* Use global padding */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.input-group {
+    margin-bottom: 1rem; /* Space below each input group */
+}
+
+.input-group label {
+    display: block; /* Block display for labels */
+    margin-bottom: 0.5rem; /* Space below the label */
+    font-weight: bold; /* Bold label text */
+    color: var(--text-color);
+}
+
+.input-group input {
+    font-size: 1rem; /* Input text size */
+    padding: var(--padding-md); /* Use global padding */
+    border: 2px solid var(--input-text); /* Use global input text color */
+    border-radius: var(--border-radius); /* Use global border radius */
+    width: 100%; /* Full width for inputs */
+}
+
+button {
+    background-color: var(--button-bg); /* Use global button background */
+    color: var(--text-color); /* Use global text color */
+    border: none; /* No border */
+    border-radius: var(--border-radius); /* Use global border radius */
+    padding: var(--padding-md) var(--padding-lg); /* Use global padding */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+button:hover {
+    background-color: var(--button-hover-bg); /* Use global button hover background */
+}
+
+.error {
+    color: red; /* Error message color */
+    font-size: 0.875rem; /* Smaller font size for error messages */
+}
+
+.add-btn{
+    margin: 0.5rem;
+}

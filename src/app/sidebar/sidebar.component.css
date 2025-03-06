@@ -5,12 +5,13 @@
 
 /* Desktop Sidebar */
 .app-sidebar {
-  position: relative;
+  position: flex
+;
   width: 200px;
   background-color: var(--secondary-bg);
   color: var(--text-color);
   padding: var(--padding-md);
-  min-height: 100vh;
+  min-height: 90vh;
   transition: transform 0.3s ease-in-out;
   transform: translateX(0);
 }
