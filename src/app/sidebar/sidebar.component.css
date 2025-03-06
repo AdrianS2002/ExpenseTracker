@@ -8,8 +8,8 @@
   position: flex
 ;
   width: 200px;
-  background-color: var(--secondary-bg);
-  color: var(--text-color);
+  background-color: var(--primary-bg);
+  color: var(--secondary-bg);
   padding: var(--padding-md);
   min-height: 90vh;
   transition: transform 0.3s ease-in-out;

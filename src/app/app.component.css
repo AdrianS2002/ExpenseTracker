@@ -16,6 +16,7 @@ app-sidebar {
   flex: 1;
   margin: 0;
   padding: var(--padding-md); /* adjust as you prefer */
+  background-color: var(--primary-bg);
 }
 
 /* Mobile Overrides */
