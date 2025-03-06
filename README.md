@@ -1,44 +1,28 @@
-# Expense Tracker Web Application
+# ExpenseTracker
 
-## Overview
-This is a responsive expense tracking web application that allows users to manage their daily expenses. It features a user-friendly interface for mobile and desktop devices, secure user authentication, and an intuitive system for tracking expenses for the current week.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
 
-## Key Features
-- Two public pages with the rest of the application protected by authentication
-- User authentication (signup, login, password reset)
-- Mobile-responsive design for easy expense entry on smartphones
-- Current week focus with dynamic day unlocking
-- Prevention of future expense entries
-- Daily expense listing with delete functionality
-- Weekly expense summary view
-- Expense categories management
-- Simple expense entry form (name, amount, category)
+## Development server
 
-## Technology Stack
-- Angular
-- Database & Authentication: Firebase
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Pages & Components
-1. **Public Pages**:
-   - Home
-   - Auth
-   - Forgot Password
+## Code scaffolding
 
-2. **Protected Pages**:
-   - Expenses Tracker
-   - Summary
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Usage Guide
+## Build
 
-### Authentication
-- Users must create an account to access the expense tracking features
-- Password reset functionality is available via email
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-### Adding Expenses
-- Navigate to the Expenses Tracker
-- Select the current day (only current and past days of the current week are enabled)
-- Fill the expense form with:
-  - Expense name
-  - Amount
-  - Category (selected from dropdown)
-- Submit to add the expense
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+# ExpenseTracker
