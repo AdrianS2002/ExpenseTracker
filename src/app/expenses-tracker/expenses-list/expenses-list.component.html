@@ -1,16 +1,16 @@
 <div class="expenses-list">
-  @for (expense of this.expenseTrackerService.getExpenses()(); track $index) {
-    <app-expense 
-      [id]="expense.id!" 
-      [name]="expense.name!" 
-      [category]="expense.categoryName!" 
-      [amount]="expense.amount">
-    </app-expense>
-  }
-
+  <div class="list-container">
+    @if (this.expenseTrackerService.getExpenses()().length > 0) {
+      @for (expense of this.expenseTrackerService.getExpenses()(); track $index) {
+        <app-expense [id]="expense.id" [name]="expense.name" [category]="expense.categoryName" [amount]="expense.amount"></app-expense>
+      }
+    } @else {
+      <div class="no-expenses">No expenses for this day.</div>
+    }
+  </div>
   <!-- Total Section -->
   <div class="total-section">
     <span>Total:</span>
-    <span class="total-amount">{{ expenseTrackerService.getTotalAmount()() }} $</span>
+    <span class="total-amount">{{expenseTrackerService.getTotalAmount()()}} $</span>
   </div>
 </div>

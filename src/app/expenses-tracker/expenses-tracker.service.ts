@@ -1,8 +1,8 @@
-import { inject, Injectable, Signal, signal } from '@angular/core';
+import { inject, Injectable, Signal, signal, computed } from '@angular/core';
 import { DatabaseService } from '../database/databse.service';
 import { Category } from '../database/models/category.model';
 import { Expense } from '../database/models/expenses.model';
-import { catchError, map, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 
 const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as const;
 const DAY_NUMBER_AMERICAN_TO_EUROPEAN = [6, 0, 1, 2, 3, 4, 5] as const;
@@ -31,7 +31,6 @@ export class ExpensesTrackerService {
   }
 
   // Public API
-
   getSelectedDay(): Signal<DayOfWeek> {
     return this.selectedDay.asReadonly();
   }
@@ -66,6 +65,7 @@ export class ExpensesTrackerService {
     if (!this.getAvailableDays().includes(day)) {
       return;
     }
+
     this.selectedDay.set(day);
     this.fetchExpensesForSelectedDay();
   }
@@ -103,23 +103,8 @@ export class ExpensesTrackerService {
     ).subscribe();
   }
 
-  updateExpense(expenseId: string, updatedExpense: Partial<Expense>): void {
-    const userData = this.getUserData();
-    if (!userData) return;
-
-    this.databaseService.updateExpense(userData.id, expenseId, updatedExpense).pipe(
-      tap(() => this.fetchExpensesForSelectedDay()),
-      catchError((error) => {
-        console.error('Failed to update expense:', error);
-        return of(null);
-      })
-    ).subscribe();
-  }
-
   // Private methods
-
   private initializeService(): void {
-    // Rebuild the day-to-date map and fetch initial data
     this.generateDayToDateMap();
     this.fetchExpenseCategories();
     this.fetchExpensesForSelectedDay();
@@ -138,10 +123,7 @@ export class ExpensesTrackerService {
         console.error('Failed to fetch expenses:', error);
         return of([]);
       })
-    ).subscribe(expenses => {
-      this.expenses.set(expenses);
-      this.computeTotalAmount(expenses);
-    });
+    ).subscribe(expenses => {this.expenses.set(expenses); this.computeTotalAmount(expenses)});
   }
 
   private fetchExpenseCategories(): void {
