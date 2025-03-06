@@ -29,6 +29,8 @@ export class AddExpenseComponent {
       this.expenseForm.value.categoryId!
     );
 
-    this.expenseForm.reset();
+      this.expenseForm.reset();
+      this.expenseForm.patchValue({ categoryId: '' });
+      this.showForm = false;
   }
 }
