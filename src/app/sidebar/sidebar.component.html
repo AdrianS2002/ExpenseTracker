@@ -6,25 +6,37 @@
   <nav>
     <ul>
       <li>
-        <a routerLink="/home" (click)="onLinkClick()">Home</a>
+        <a routerLink="/home" (click)="onLinkClick()" title="Home">
+          <i class="fas fa-home"></i>
+        </a>
       </li>
       <ng-container *ngIf="isLoggedIn; else notLoggedIn">
         <li>
-          <a routerLink="/expenses" (click)="onLinkClick()">Expenses Tracker</a>
+          <a routerLink="/expenses" (click)="onLinkClick()" title="Expenses Tracker">
+            <i class="fas fa-wallet"></i>
+          </a>
         </li>
         <li>
-          <a routerLink="/summary" (click)="onLinkClick()">Summary</a>
+          <a routerLink="/summary" (click)="onLinkClick()" title="Summary">
+            <i class="fas fa-chart-pie"></i>
+          </a>
         </li>
         <li>
-          <a routerLink="/categories" (click)="onLinkClick()">Categories</a>
+          <a routerLink="/categories" (click)="onLinkClick()" title="Categories">
+            <i class="fas fa-tags"></i>
+          </a>
         </li>
       </ng-container>
       <ng-template #notLoggedIn>
         <li>
-          <a routerLink="/auth" (click)="onLinkClick()">Auth</a>
+          <a routerLink="/auth" (click)="onLinkClick()" title="Auth">
+            <i class="fas fa-sign-in-alt"></i>
+          </a>
         </li>
         <li>
-          <a routerLink="/forgot-password" (click)="onLinkClick()">Forgot Password</a>
+          <a routerLink="/forgot-password" (click)="onLinkClick()" title="Forgot Password">
+            <i class="fas fa-key"></i>
+          </a>
         </li>
       </ng-template>
     </ul>
@@ -33,6 +45,8 @@
   <!-- User Info and Logout -->
   <div class="user-info" *ngIf="isLoggedIn">
     <p class="user-email">Logged in as: {{ userEmail }}</p>
-    <button class="logout-button" (click)="onLogout()">Logout</button>
+    <button class="logout-button" (click)="onLogout()" title="Logout">
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
   </div>
 </aside>
