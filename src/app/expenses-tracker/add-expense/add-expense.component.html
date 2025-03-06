@@ -22,9 +22,9 @@
     
           <!-- Amount -->
           <div class="input-group">
-            <label for="amount">Amount $</label>
+            <label for="amount">Amount</label>
             <div class="amount-input">
-               <input type="number" 
+              $ <input type="number" 
                      id="amount" 
                      formControlName="amount"
                      placeholder="0.00"
@@ -52,9 +52,7 @@
           }
         </div>
     
-        <button type="submit" 
-                class="add-button"
-                [disabled]="!expenseForm.valid">
+        <button type="submit" [disabled]="!expenseForm.valid">
           ➕ Add Expense
         </button>
         <button type="button" 
