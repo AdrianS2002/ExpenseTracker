@@ -12,7 +12,6 @@ interface UserData {
 })
 export class CategoriesService {
   private readonly databaseService = inject(DatabaseService);
-  
   private categories = signal<Category[]>([]);
 
   constructor() {
@@ -30,7 +29,7 @@ export class CategoriesService {
     const category: Omit<Category, 'id'> = { name };
 
     this.databaseService.addCategory(userData.id, category).pipe(
-      tap(() => this.fetchCategoriesInTransaction()),
+      tap(() => this.fetchCategoriesInTransaction()), // Updates categories
       catchError(error => {
         console.error('Failed to add category:', error);
         return of(null);
@@ -38,17 +37,16 @@ export class CategoriesService {
     ).subscribe();
   }
 
-  deleteCategory(categoryId: string): void {
+  fetchCategoriesInTransaction(): void {
     const userData = this.getUserData();
     if (!userData) return;
 
-    this.databaseService.deleteCategory(userData.id, categoryId).pipe(
-      tap(() => this.fetchCategoriesInTransaction()),
+    this.databaseService.getCategories(userData.id).pipe(
       catchError(error => {
-        console.error('Failed to delete category:', error);
-        return of(null);
+        console.error('Failed to fetch categories in transaction:', error);
+        return of([]);
       })
-    ).subscribe();
+    ).subscribe(categories => this.categories.set(categories));
   }
 
   updateCategory(categoryId: string, updatedName: string): void {
@@ -67,19 +65,6 @@ export class CategoriesService {
     ).subscribe();
   }
   
-
-  fetchCategoriesInTransaction(): void {
-    const userData = this.getUserData();
-    if (!userData) return;
-
-    this.databaseService.getCategories(userData.id).pipe(
-      catchError(error => {
-        console.error('Failed to fetch categories in transaction:', error);
-        return of([]);
-      })
-    ).subscribe(categories => this.categories.set(categories));
-  }
-
   private getUserData(): UserData | null {
     const userData = localStorage.getItem('userData');
     if (!userData) {
