@@ -9,6 +9,7 @@ app-sidebar {
   flex-shrink: 0;
   margin: 0;
   padding: 0;
+  padding-top: 3%;
 }
 
 .content-area {
