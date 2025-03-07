@@ -6,33 +6,57 @@
   <nav>
     <ul>
       <li>
-        <a routerLink="/home" (click)="onLinkClick()">Home</a>
+        <a routerLink="/home" (click)="onLinkClick()" title="Home">
+          <i class="fas fa-home" title="Home"></i>
+          <span *ngIf="isActive">Home</span>
+        </a>
       </li>
       <ng-container *ngIf="isLoggedIn; else notLoggedIn">
         <li>
-          <a routerLink="/expenses" (click)="onLinkClick()">Expenses Tracker</a>
+          <a routerLink="/expenses" (click)="onLinkClick()" title="Expenses Tracker">
+            <i class="fas fa-wallet" title="Expenses Tracker"></i>
+            <span *ngIf="isActive">Expenses Tracker</span>
+          </a>
         </li>
         <li>
-          <a routerLink="/summary" (click)="onLinkClick()">Summary</a>
+          <a routerLink="/summary" (click)="onLinkClick()" title="Summary">
+            <i class="fas fa-chart-pie" title="Summary"></i>
+            <span *ngIf="isActive">Summary</span>
+          </a>
         </li>
         <li>
-          <a routerLink="/categories" (click)="onLinkClick()">Categories</a>
+          <a routerLink="/categories" (click)="onLinkClick()" title="Categories">
+            <i class="fas fa-tags" title="Categories"></i>
+            <span *ngIf="isActive">Categories</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/user-info" (click)="onLinkClick()" title="User info">
+            <i class="fas fa-user" title="User info"></i>
+            <span *ngIf="isActive">User info</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/auth" (click)="onLogout()" title="Logout">
+            <i class="fas fa-sign-out-alt" title="Logout"></i>
+            <span *ngIf="isActive">Logout</span>
+          </a>
         </li>
       </ng-container>
       <ng-template #notLoggedIn>
         <li>
-          <a routerLink="/auth" (click)="onLinkClick()">Auth</a>
+          <a routerLink="/auth" (click)="onLinkClick()" title="Auth">
+            <i class="fas fa-sign-in-alt" title="Auth"></i>
+            <span *ngIf="isActive">Auth</span>
+          </a>
         </li>
         <li>
-          <a routerLink="/forgot-password" (click)="onLinkClick()">Forgot Password</a>
+          <a routerLink="/forgot-password" (click)="onLinkClick()" title="Forgot Password">
+            <i class="fas fa-key" title="Forgot Password"></i>
+            <span *ngIf="isActive">Forgot Password</span>
+          </a>
         </li>
       </ng-template>
     </ul>
   </nav>
-
-  <!-- User Info and Logout -->
-  <div class="user-info" *ngIf="isLoggedIn">
-    <p class="user-email">Logged in as: {{ userEmail }}</p>
-    <button class="logout-button" (click)="onLogout()">Logout</button>
-  </div>
 </aside>
