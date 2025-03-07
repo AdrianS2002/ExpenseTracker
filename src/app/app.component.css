@@ -6,7 +6,6 @@
 }
 
 app-sidebar {
-  width: 200px; /* fixed sidebar width on desktop */
   flex-shrink: 0;
   margin: 0;
   padding: 0;

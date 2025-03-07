@@ -7,7 +7,7 @@
 .app-sidebar {
   position: flex
 ;
-  width: 200px;
+  width: 50px;
   background-color: var(--primary-bg);
   color: var(--secondary-bg);
   padding: var(--padding-md);
@@ -23,7 +23,7 @@
     top: 0;
     left: 0;
     bottom: 0;
-    width: 75%;
+    width: 10%;
     transform: translateX(-100%);
     z-index: 1300;
   }
