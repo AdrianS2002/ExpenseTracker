@@ -8,32 +8,38 @@
       <li>
         <a routerLink="/home" (click)="onLinkClick()" title="Home">
           <i class="fas fa-home"></i>
+          <span *ngIf="isActive">Home</span>
         </a>
       </li>
       <ng-container *ngIf="isLoggedIn; else notLoggedIn">
         <li>
           <a routerLink="/expenses" (click)="onLinkClick()" title="Expenses Tracker">
             <i class="fas fa-wallet"></i>
+            <span *ngIf="isActive">Expenses Tracker</span>
           </a>
         </li>
         <li>
           <a routerLink="/summary" (click)="onLinkClick()" title="Summary">
             <i class="fas fa-chart-pie"></i>
+            <span *ngIf="isActive">Summary</span>
           </a>
         </li>
         <li>
           <a routerLink="/categories" (click)="onLinkClick()" title="Categories">
             <i class="fas fa-tags"></i>
+            <span *ngIf="isActive">Categories</span>
           </a>
         </li>
         <li>
           <a routerLink="/user-info" (click)="onLinkClick()" title="User info">
             <i class="fas fa-user"></i>
+            <span *ngIf="isActive">User info</span>
           </a>
         </li>
         <li>
           <a routerLink="/auth" (click)="onLogout()" title="Logout">
             <i class="fas fa-sign-out-alt"></i>
+            <span *ngIf="isActive">Logout</span>
           </a>
         </li>
       </ng-container>
@@ -41,21 +47,16 @@
         <li>
           <a routerLink="/auth" (click)="onLinkClick()" title="Auth">
             <i class="fas fa-sign-in-alt"></i>
+            <span *ngIf="isActive">Auth</span>
           </a>
         </li>
         <li>
           <a routerLink="/forgot-password" (click)="onLinkClick()" title="Forgot Password">
             <i class="fas fa-key"></i>
+            <span *ngIf="isActive">Forgot Password</span>
           </a>
         </li>
       </ng-template>
     </ul>
   </nav>
-
-  <!-- <div class="user-info" *ngIf="isLoggedIn">
-    <p class="user-email">Logged in as: {{ userEmail }}</p>
-    <button class="logout-button" (click)="onLogout()" title="Logout">
-      <i class="fas fa-sign-out-alt"></i>
-    </button>
-  </div>  -->
 </aside>
