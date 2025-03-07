@@ -7,6 +7,7 @@
 .app-sidebar {
   position: flex;
   width: 50px;
+  height: 100%;
   background-color: var(--primary-bg);
   color: var(--secondary-bg);
   padding: var(--padding-md);

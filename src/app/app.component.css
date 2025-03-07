@@ -6,10 +6,16 @@
 }
 
 app-sidebar {
-  flex-shrink: 0;
+  position: fixed; /* make the sidebar fixed */
+  top: 0;
+  left: 0;
+  width: 250px; /* adjust the width as needed */
+  height: 100%; /* make it full height */
   margin: 0;
   padding: 0;
   padding-top: 3%;
+  background-color: var(--sidebar-bg); /* add a background color if needed */
+  z-index: 1000; /* ensure it stays on top */
 }
 
 .content-area {
@@ -17,20 +23,8 @@ app-sidebar {
   margin: 0;
   padding: var(--padding-md); /* adjust as you prefer */
   background-color: var(--primary-bg);
+  margin-left: 50px; /* add margin to account for the fixed sidebar */
 }
-
-/* Mobile Overrides */
-@media (max-width: 768px) {
-  .main-content {
-    display: block; /* let content-area take full width on mobile */
-  }
-
-  .content-area {
-    width: 100%;
-    padding: var(--padding-md);
-  }
-}
-
 
 #app-root {
   display: flex;
@@ -44,5 +38,27 @@ app-sidebar {
   display: flex;
   flex-direction: column;
   flex: 1; /* This pushes the footer to the bottom */
-  /* Add padding or margin as needed */
+  margin-left: 60px;
 }
+
+/* Mobile Overrides */
+@media (max-width: 768px) {
+  .main-content {
+    display: block; /* let content-area take full width on mobile */
+    margin: 0;
+  }
+
+  .content-area {
+    width: 100%;
+    padding: var(--padding-md);
+    margin: 0; /* remove margin on mobile */
+  }
+
+  app-sidebar {
+    position: relative;
+    width: 0;
+    height: auto;
+    margin: 0;
+  }
+}
+
