@@ -5,9 +5,9 @@ import { Expense } from '../database/models/expenses.model';
 import { catchError, map, of, tap } from 'rxjs';
 import { CategoriesService } from '../categories/categories.service';
 
-const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as const;
+export const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as const;
 const DAY_NUMBER_AMERICAN_TO_EUROPEAN = [6, 0, 1, 2, 3, 4, 5] as const;
-type DayOfWeek = typeof DAYS_OF_WEEK[number];
+export type DayOfWeek = typeof DAYS_OF_WEEK[number];
 
 interface UserData {
   id: string;
@@ -137,7 +137,8 @@ export class ExpensesTrackerService {
     this.databaseService.getExpensesForDate(userData.id, date).pipe(
       map(expenses => this.enrichExpensesWithCategories(expenses)),
       catchError((error) => {
-        console.error('Failed to fetch expenses:', error);
+    console.error('Failed to fetch expenses for date:', date, error);
+
         return of([]);
       })
     ).subscribe(expenses => {
