@@ -1,52 +1,64 @@
-:host {
+.summary-page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 100%;
-  padding: var(--padding-lg);
-  background-color: var(--secondary-bg);
-  color: var(--text-color);
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 2rem;
   text-align: center;
+  overflow: hidden; /* Prevents extra scroll */
 }
 
-.summary-container {
-  max-width: 500px;
-  margin: 1rem;
-  width: 100%;
+h1 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
-.summary-container h1 {
-  margin-bottom: var(--padding-md);
+.expense-total {
+  font-size: 1.5rem;
+  background: rgba(255, 255, 255, 0.1); /* Subtle background */
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
-.summary-element {
-  display: block;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  padding: var(--padding-md);
-  background-color: var(--primary-bg);
-  color: var(--text-color);
-  margin-bottom: var(--padding-md);
+app-piechart {
+  max-width: 80%;
+  max-height: 50vh;
+  flex-shrink: 1;
 }
 
+.btn-primary {
+  background: linear-gradient(90deg, #6a11cb, #2575fc); /* Vibrant button */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
 
-/* Media Queries */
+.btn-primary:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #2575fc, #6a11cb);
+}
+
 @media (max-width: 768px) {
-  :host {
-    padding: var(--padding-md);
+  .summary-page {
+      padding: 1rem;
   }
-  .summary-container {
-    max-width: 90%;
-  }
-}
 
-@media (max-width: 480px) {
-  :host h1 {
-    font-size: 1.5rem;
+  h1 {
+      font-size: 0.9rem;
   }
-  :host p {
-    font-size: 0.9rem;
+
+  .expense-total {
+      font-size: 1.2rem;
+  }
+
+  app-piechart {
+      max-width: 100%;
+      max-height: 40vh;
   }
 }
-  
