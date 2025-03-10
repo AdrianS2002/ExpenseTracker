@@ -1,0 +1,52 @@
+.weekly-budget-container {
+    max-width: 500px;
+    margin: var(--padding-lg) auto;
+    padding: var(--padding-lg);
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: var(--text-color);
+  }
+  
+  .weekly-budget-container h1 {
+    font-size: 2rem;
+    margin-bottom: var(--padding-md);
+  }
+  
+  .weekly-budget-container h1 span {
+    font-weight: 600;
+    margin-left: var(--padding-md);
+  }
+  
+  .weekly-budget-container input[type="number"] {
+    width: 50%;
+    padding: var(--padding-md);
+    font-size: 16px;
+    border: 2px solid var(--input-text);
+    border-radius: var(--border-radius);
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    text-align: center;
+    margin-top: var(--padding-md);
+  }
+  
+  .budget-buttons {
+    margin-top: var(--padding-md);
+  }
+  
+  .budget-buttons button {
+    margin: 0 var(--padding-md);
+    padding: var(--padding-md) var(--padding-lg);
+    font-size: 16px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    transition: background 0.3s ease;
+  }
+  
+  .budget-buttons button:hover {
+    background-color: var(--button-hover-bg);
+  }

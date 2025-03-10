@@ -17,7 +17,7 @@ export class DatabaseService {
     const batch = writeBatch(this.firestore);
 
     // Add user doc
-    batch.set(userRef, { email, hashedPassword, createdAt: new Date() });
+    batch.set(userRef, { email, hashedPassword, createdAt: new Date(), weeklyBudget:0,lastWeeklyBudgetUpdate: new Date() });
 
     // Default category
     const defaultCategoryRef = doc(categoriesRef);
@@ -53,6 +53,36 @@ export class DatabaseService {
     const userRef = doc(this.firestore, `users/${userId}`);
     return from(updateDoc(userRef, { hashedPassword }));
   }
+
+  getWeeklyBudget(userId: string): Observable<number> {
+    const userRef = doc(this.firestore, `users/${userId}`);
+    return from(getDoc(userRef)).pipe(
+      map((docSnap) => {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          return data["weeklyBudget"] ;
+        }
+        return 0;
+      })
+    );
+  }
+  
+
+  updateUserWeeklyBudget(userId: string, newBudget: number): Observable<void> {
+    const userRef = doc(this.firestore, `users/${userId}`);
+    return from(updateDoc(userRef, { 
+      weeklyBudget: newBudget, 
+      lastWeeklyBudgetUpdate: new Date()  // salvezi data curentă
+    })).pipe(
+      tap(() => console.log('Weekly budget updated successfully!')),
+      catchError((error) => {
+        console.error('Firestore Error:', error);
+        return throwError(() => new Error('Firestore update failed'));
+      })
+    );
+  }
+
+
 
   // ----------------------------
   // CRUD for Categories
