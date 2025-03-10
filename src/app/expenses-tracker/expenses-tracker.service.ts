@@ -75,14 +75,14 @@ export class ExpensesTrackerService {
   addExpense(name: string, amount: number, categoryId: string): void {
     const userData = this.getUserData();
     if (!userData) return;
-
+  
     const expense: Omit<Expense, 'id'> = {
       name,
       amount,
       categoryId,
-      date: this.dayToDateMap.get(this.selectedDay()) ?? ''
+      date: new Date().toISOString() 
     };
-
+  
     this.databaseService.addExpense(userData.id, expense).pipe(
       tap(() => this.fetchExpensesForSelectedDay()),
       catchError((error) => {
@@ -166,7 +166,8 @@ export class ExpensesTrackerService {
     }));
   }
 
-  private getCategoryNameById(categoryId: string): string {
+  // Changed from private to public so it can be accessed outside this service.
+  public getCategoryNameById(categoryId: string): string {
     return this.expenseCategories()
       .find(category => category.id === categoryId)
       ?.name ?? '';

@@ -136,9 +136,19 @@ export class DatabaseService {
 
   getExpensesForDate(userId: string, date: string): Observable<Expense[]> {
     const expensesRef = collection(this.firestore, `users/${userId}/expenses`);
-    const q = query(expensesRef, where('date', '==', date));
+    
+    // Assume the passed date is in "YYYY-MM-DD" format.
+    // Construct the start of the day and the start of the next day as ISO strings.
+    const startDate = date + "T00:00:00.000Z";
+    const nextDate = new Date(new Date(startDate).setDate(new Date(startDate).getDate() + 1)).toISOString();
+    
+    const q = query(expensesRef,
+      where('date', '>=', startDate),
+      where('date', '<', nextDate)
+    );
+    
     const querySnapshotPromise = getDocs(q);
-
+    
     return from(querySnapshotPromise).pipe(
       map((snap) => snap.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Expense)))
     );
