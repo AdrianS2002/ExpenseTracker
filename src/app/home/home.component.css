@@ -5,7 +5,20 @@
   align-items: center;
   width: 100%;
   padding: var(--padding-lg);
-  background-color: #f5f5f7; /* Light grey background */
+  background-color: var(--primary-bg); /* Light grey background */
+  color: #333; /* Dark grey text */
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: var(--padding-lg);
+  background-color: var(--primary-bg); /* Light grey background */
   color: #333; /* Dark grey text */
   text-align: center;
   font-family: 'Inter', sans-serif;
@@ -86,12 +99,16 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 800px) {
   :host h2 {
       font-size: 2rem;
   }
   :host p {
       font-size: 1rem;
+  }
+
+  .container{
+    flex-direction: column;
   }
   .home-button {
       font-size: 1rem;

@@ -1,9 +1,21 @@
-<div class="home-container">
-  <h2>Welcome to Expense Tracker</h2>
-  <p>Track your expenses and manage your budget with ease.</p>
-  <div class="home-buttons">
-      <button class="home-button add-expense" (click)="showAddExpenseForm = true">➕ Add Expense</button>
-      <button class="home-button add-category" (click)="showAddCategoryForm = true">➕ Add Category</button>
+<div class="container">
+  <div class="home-container">
+    <h2>Welcome to Expense Tracker</h2>
+    <p>Track your expenses and manage your budget with ease.</p>
+    <div class="home-buttons">
+      <button
+        class="home-button add-expense"
+        (click)="showAddExpenseForm = true"
+      >
+        ➕ Add Expense
+      </button>
+      <button
+        class="home-button add-category"
+        (click)="showAddCategoryForm = true"
+      >
+        ➕ Add Category
+      </button>
     </div>
   </div>
   <app-summary></app-summary>
+</div>
