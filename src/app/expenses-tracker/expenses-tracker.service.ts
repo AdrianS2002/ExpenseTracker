@@ -19,7 +19,7 @@ export class ExpensesTrackerService {
   private readonly databaseService = inject(DatabaseService);
   showForm = signal<boolean>(false);
   // Core state
-  private selectedDay = signal<DayOfWeek>('Sunday');
+  private selectedDay = signal<DayOfWeek>('Monday');
   private expenseCategories = signal<Category[]>([]);
   private expenses = signal<Expense[]>([]);
   private totalAmount = signal<number>(0);
