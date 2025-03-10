@@ -1,6 +1,7 @@
 :host {
   display: block;
   box-sizing: border-box;
+  z-index: 996;
 }
 
 /* Desktop Sidebar */

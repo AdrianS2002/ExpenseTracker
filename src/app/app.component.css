@@ -13,9 +13,9 @@ app-sidebar {
   height: 100%; /* make it full height */
   margin: 0;
   padding: 0;
-  padding-top: 3%;
+  padding-top: 10%;
   background-color: var(--sidebar-bg); /* add a background color if needed */
-  z-index: 1000; /* ensure it stays on top */
+  z-index: 995; /* ensure it stays on top */
 }
 
 .content-area {
