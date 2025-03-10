@@ -6,7 +6,16 @@
   background: var(--secondary-bg);
   color: var(--secondary-text-color);
   justify-self: center;
-  margin-top: -30px;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+}
+
+.app-add-expense{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ align-content: center;
 }
 
 @media (max-width: 800px) {

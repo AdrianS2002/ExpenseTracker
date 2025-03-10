@@ -47,7 +47,6 @@ export interface EditExpenseData {
     .dialog-actions {
       display: flex;
       justify-content: flex-end;
-      margin-top: 15px;
     }
     mat-form-field {
       display: block;

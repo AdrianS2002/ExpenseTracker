@@ -42,7 +42,6 @@ app-piechart {
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  margin-top: 10px;
 }
 
 .summary-button:hover {
