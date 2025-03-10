@@ -1,0 +1,66 @@
+<div class="expense-table-container">
+  <div class="expense-header">
+    <h2>Weekly Expenses by Category</h2>
+    <button *ngIf="!isLoading && !errorMessage && categorySummaries.length > 0"
+            class="export-button"
+            (click)="exportToExcel()">
+      <span>Export to Excel</span>
+    </button>
+  </div>
+  
+  <!-- Loading state -->
+  <div *ngIf="isLoading" class="loading">
+    <p>Loading expense data...</p>
+  </div>
+  
+  <!-- Error message display -->
+  <div *ngIf="!isLoading && errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+  
+  <!-- No data state -->
+  <div *ngIf="!isLoading && !errorMessage && categorySummaries.length === 0" class="no-data">
+    <p>No expenses recorded for this week.</p>
+  </div>
+  
+  <!-- Table with data -->
+  <table *ngIf="!isLoading && !errorMessage && categorySummaries.length > 0" class="expense-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th *ngFor="let day of weekDays">{{ day }}</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categorySummaries">
+        <td class="category-name">{{ category.categoryName }}</td>
+        
+        <!-- Day cells with conditional styling -->
+        <td *ngFor="let day of weekDays" 
+            [ngClass]="{'has-expense': category.dayAmounts[day] > 0}"
+            [style.background]="category.dayAmounts[day] > 0 ? 
+              'rgba(240, 248, 255, ' + getPercentage(category.dayAmounts[day])/100 + ')' : ''">
+          <ng-container *ngIf="category.dayAmounts[day] > 0; else noExpense">
+            ${{ formatCurrency(category.dayAmounts[day]) }}
+          </ng-container>
+          <ng-template #noExpense>—</ng-template>
+        </td>
+        
+        <td class="category-total">${{ formatCurrency(category.total) }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td><strong>Daily Total</strong></td>
+        <td *ngFor="let day of weekDays" class="day-total">
+          <ng-container *ngIf="dayTotals[day] > 0; else zeroDayTotal">
+            ${{ formatCurrency(dayTotals[day]) }}
+          </ng-container>
+          <ng-template #zeroDayTotal>—</ng-template>
+        </td>
+        <td class="grand-total">${{ formatCurrency(grandTotal) }}</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
