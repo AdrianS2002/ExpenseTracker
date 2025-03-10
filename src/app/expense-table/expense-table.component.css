@@ -1,0 +1,47 @@
+
+
+.expense-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+
+  /* export expense list button */
+  .export-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .export-button:hover {
+    background-color: #45a049;
+  }
+  
+  .export-button:active {
+    background-color: #3e8e41;
+  }
+  
+  .export-button span {
+    margin-left: 5px;
+  }
+  
+  .export-button::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M14 14l-1.5-2-1.5 2H9l2.5-3L9 8h2l1.5 2L14 8h2l-2.5 3L16 14h-2z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-right: 5px;
+  }
