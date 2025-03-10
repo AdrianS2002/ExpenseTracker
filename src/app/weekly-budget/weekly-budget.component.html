@@ -11,5 +11,8 @@
       <button (click)="onCancelEdit()">Cancel</button>
     </div>
   </div>
+  <div class="remaining-budget" [ngStyle]="{'color': remainingBudget >= 0 ? 'green' : 'red'}">
+    Remaining Budget: {{ remainingBudget }}
+  </div>
   <div *ngIf="isLoading" class="spinner"></div>
 </div>
