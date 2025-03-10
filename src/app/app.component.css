@@ -21,9 +21,7 @@ app-sidebar {
 .content-area {
   flex: 1;
   margin: 0;
-  padding: var(--padding-md); /* adjust as you prefer */
   background-color: var(--primary-bg);
-  margin-left: 50px; /* add margin to account for the fixed sidebar */
 }
 
 #app-root {
@@ -32,13 +30,14 @@ app-sidebar {
 }
 
 .main-content {
-  margin: var(--padding-md);
+  height: 100vh;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   flex: 1; /* This pushes the footer to the bottom */
-  margin-left: 60px;
+  margin: 60px;
+  margin-bottom: 0;
 }
 
 /* Mobile Overrides */
