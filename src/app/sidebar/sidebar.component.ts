@@ -33,6 +33,7 @@ export class SidebarComponent implements OnDestroy {
   }
 
   onLogout(): void {
+    this.authService.isLogged.set(false);
     this.authService.logout();
     this.closeSidebar.emit();
   }

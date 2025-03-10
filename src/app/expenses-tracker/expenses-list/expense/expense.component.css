@@ -1,49 +1,60 @@
- 
-  .expense-item {
-    max-width: 1000px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin: 5px;
-    background: #f8f9fa;
-    border-radius: 4px;
-  }
-  
-  .expense-details {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-  
-  .expense-name {
-    font-weight: bold;
-    color: #333;
-    white-space: normal;
-    overflow-wrap: break-word;
-    word-wrap: break-word; 
-    max-width: 100%; 
+.expense-item {
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 5px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
-  .expense-category {
-    font-size: 0.8rem;
-    color: #666;
-  }
-  
-  .expense-amount {
-    margin: 0 15px;
-    color: #dc3545;
-    font-weight: bold;
-  }
-  
-  .delete-button {
-    background: none;
-    border: none;
-    color: #dc3545;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0 5px;
-  }
-  
-  .delete-button:hover {
-    color: #bb2d3b;
-  }
+
+.expense-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.expense-name {
+  font-weight: bold;
+  color: #333;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+.expense-category {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.expense-amount {
+  margin: 0 15px;
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.expense-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-button,
+.delete-button {
+  background: none;
+  border: none;
+  color: var(--secondary-bg);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  color: #bb2d3b;
+}
+
+.edit-button {
+  font-size: 0.7rem;
+}

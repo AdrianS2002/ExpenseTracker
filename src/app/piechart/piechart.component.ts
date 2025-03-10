@@ -22,6 +22,7 @@ export class PieChartComponent implements OnInit, OnDestroy {
   private chart?: Chart;
   private userSub?: Subscription;
   isLoading = false;
+  isHomePage = true;
   errorMessage: string | null = null;
 
 

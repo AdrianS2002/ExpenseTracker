@@ -1,96 +1,69 @@
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
-:root {
-  --font-primary: 'Poppins', sans-serif;
-  --primary-bg: #d3d5d6d7;
-  --secondary-bg: #373c4f;
-  --text-color: azure;
-  --button-bg: #b38add;
-  --button-hover-bg: #a676d1;
-  --input-bg: #fff;
-  --input-text: #373c4f;
-  --border-color: rgba(255, 255, 255, 0.2);
-  --padding-lg: 2rem;
-  --padding-md: 1rem;
-  --border-radius: 10px;
-}
-
-/* Global Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: var(--font-primary);
-}
-
-/* Host container: full-screen, centered, uses secondary background */
-:host {
+.summary-page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 100%;
-  padding: var(--padding-lg);
-  background-color: var(--secondary-bg);
-  color: var(--text-color);
+  justify-content: center;
+  box-sizing: border-box;
   text-align: center;
+  overflow: hidden; /* Prevents extra scroll */
 }
 
-/* Container for content with max width similar to home container */
-.summary-container {
-  max-width: 800px;
-  margin: 1rem;
-  width: 100%;
+h1 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: black;
 }
 
-/* Page Title */
-.summary-container h1 {
-  margin-bottom: var(--padding-md);
+.expense-total {
+  font-size: 1.5rem;
+  background: rgba(255, 255, 255, 0.1); /* Subtle background */
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
-/* Summary Element: a styled box for displaying total */
-.summary-element {
-  display: block;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  padding: var(--padding-md);
-  background-color: var(--primary-bg);
+app-piechart {
+  flex-shrink: 1;
+  height: 100%;
+  width: 30%;
+}
+
+.summary-button {
+  background-color: var(--button-bg);
   color: var(--text-color);
-  margin-bottom: var(--padding-md);
+  padding: 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
 }
 
-/* Optional: if you keep an expense list in the future */
-.expense-list {
-  list-style: none;
-  padding: 0;
+.summary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
-.expense-list li {
-  padding: var(--padding-md);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.expense-list li:last-child {
-  border-bottom: none;
-}
-
-/* Media Queries */
 @media (max-width: 768px) {
-  :host {
-    padding: var(--padding-md);
+  .summary-page {
+      padding: 1rem;
   }
-  .summary-container {
-    max-width: 90%;
-  }
-}
 
-@media (max-width: 480px) {
-  :host h1 {
-    font-size: 1.5rem;
+  h1 {
+      font-size: 0.9rem;
   }
-  :host p {
-    font-size: 0.9rem;
+
+  .expense-total {
+      font-size: 1.2rem;
+  }
+
+  app-piechart {
+      max-width: 100%;
+      max-height: 40vh;
   }
 }
-  

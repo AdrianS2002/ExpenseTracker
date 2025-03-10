@@ -18,10 +18,12 @@ interface UserData {
 })
 export class ExpensesTrackerService {
   private readonly databaseService = inject(DatabaseService);
+
   private readonly categoriesService = inject(CategoriesService);
+  showForm = signal<boolean>(false);
 
   // Core state
-  private selectedDay = signal<DayOfWeek>('Sunday');
+  private selectedDay = signal<DayOfWeek>('Monday');
   private expenseCategories = this.categoriesService.getCategories();
   private expenses = signal<Expense[]>([]);
   private totalAmount = signal<number>(0);

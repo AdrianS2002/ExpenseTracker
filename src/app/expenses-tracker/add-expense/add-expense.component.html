@@ -1,9 +1,6 @@
 <!-- add-expense.component.html -->
  <div class="add-expense-wrapper">
-  @if (!showForm) {
-    <button (click)="showForm = true">➕ Add Expense</button>
-  }
-  @else {
+  @if (showForm()) {
     <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
       <div class="add-expense">
         <div class="expense-input-container">
@@ -59,7 +56,7 @@
         </button>
         <button type="button" 
         class="cancel-button"
-        (click)="showForm = false">
+        (click)="showForm.set(false)">
   Cancel
 </button>
       </div>

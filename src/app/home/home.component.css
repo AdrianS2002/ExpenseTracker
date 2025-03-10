@@ -5,31 +5,28 @@
   align-items: center;
   width: 100%;
   padding: var(--padding-lg);
-  background-color: var(--secondary-bg);
   color: var(--text-color);
   text-align: center;
-  font-family: 'Inter', sans-serif; /* Modern sans-serif font */
+  font-family: var(--font-primary);
 }
+
 
 .home-container {
   max-width: 800px;
   margin: 1rem;
-  background: var(--primary-bg);
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .home-container h2 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: var(--primary-color);
+  color: #1a1a1a; /* Darker text for headings */
 }
 
 .home-container p {
-  font-size: 1rem;
-  color: var(--text-secondary);
+  font-size: 1.1rem;
+  color: #666; /* Medium grey for paragraph text */
   margin-bottom: 2rem;
 }
 
@@ -41,32 +38,30 @@
 }
 
 .home-button {
-  padding: 0.75rem 1.5rem;
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+  padding: 1rem;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.home-button.add-expense {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  color: white;
-}
-
-.home-button.add-category {
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  color: white;
+  justify-content: center;
+  gap: 0.75rem;
 }
 
 .home-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
+
+.home-button.add-category {
+  background: var(--button-bg);
+}
+
 
 /* Media Queries */
 @media (max-width: 768px) {
@@ -86,15 +81,19 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 800px) {
   :host h2 {
-      font-size: 1.5rem;
+      font-size: 2rem;
   }
   :host p {
-      font-size: 0.9rem;
+      font-size: 1rem;
+  }
+
+  .container{
+    flex-direction: column;
   }
   .home-button {
-      font-size: 0.9rem;
-      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
   }
 }

@@ -58,7 +58,6 @@
 .currency {
     position: absolute;
     left: 1rem;
-    top: 50%;
     transform: translateY(-50%);
     color: var(--input-text);
     pointer-events: none;
@@ -169,7 +168,6 @@
 
 @media (max-width: 800px) {
     div.add-expense-wrapper {
-        margin-top: 1rem;
     }
     
     .expense-input-container {
