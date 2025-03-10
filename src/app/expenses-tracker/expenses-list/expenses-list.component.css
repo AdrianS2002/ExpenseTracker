@@ -4,7 +4,7 @@
   gap: 10px;
   margin-bottom: 30px;
   padding: var(--padding-md);
-  background: var(--primary-bg);
+  background: white;
   border-radius: var(--border-radius);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -19,12 +19,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 10px;
-  margin-top: 20px;
   border-top: 1px solid var(--border-color);
   font-weight: bold;
   font-size: 1.5rem;
   border-radius: var(--border-radius);
-  color: white;
+  color: black;
 }
 
 .no-expenses {

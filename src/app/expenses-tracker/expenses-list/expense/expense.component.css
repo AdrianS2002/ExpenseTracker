@@ -6,8 +6,9 @@
     align-items: center;
     padding: 10px;
     margin: 5px;
-    background: #f8f9fa;
+    background: white;
     border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
   
   .expense-details {

@@ -1,7 +1,7 @@
 <!-- add-expense.component.html -->
  <div class="add-expense-wrapper">
   @if (!showForm) {
-    <button (click)="showForm = true">➕ Add Expense</button>
+    <button (click)="showForm = true" class="add-button" >➕ Add Expense</button>
   }
   @else {
     <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">

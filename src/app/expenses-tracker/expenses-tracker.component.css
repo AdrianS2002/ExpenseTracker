@@ -1,12 +1,12 @@
 .expense-container {
   font-family: var(--font-primary);
-  max-width: 1000px;
-  margin: var(--padding-md) auto;
   padding: var(--padding-lg);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: var(--border-radius);
   background: var(--secondary-bg);
   color: var(--secondary-text-color);
+  justify-self: center;
+  margin-top: -30px;
 }
 
 @media (max-width: 800px) {
