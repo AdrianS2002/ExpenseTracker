@@ -17,7 +17,7 @@ interface UserData {
 })
 export class ExpensesTrackerService {
   private readonly databaseService = inject(DatabaseService);
-
+  showForm = signal<boolean>(false);
   // Core state
   private selectedDay = signal<DayOfWeek>('Sunday');
   private expenseCategories = signal<Category[]>([]);

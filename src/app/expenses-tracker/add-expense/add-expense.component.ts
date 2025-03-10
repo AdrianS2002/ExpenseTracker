@@ -18,7 +18,7 @@ export class AddExpenseComponent {
     categoryId: new FormControl('', Validators.required)
   });
 
-  showForm = false;
+  showForm = this.expensesTrackerService.showForm;
 
   onSubmit() {
     console.log("Form values:", this.expenseForm.value);
@@ -31,6 +31,6 @@ export class AddExpenseComponent {
 
       this.expenseForm.reset();
       this.expenseForm.patchValue({ categoryId: '' });
-      this.showForm = false;
+      this.showForm.set(false);
   }
 }
