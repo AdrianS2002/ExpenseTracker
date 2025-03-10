@@ -1,5 +1,9 @@
 <div class="home-container">
-    <h2>Welcome to Expense Tracker</h2>
-    <p>This is your home page. Use the sidebar to navigate to different sections of the application.</p>
+  <h2>Welcome to Expense Tracker</h2>
+  <p>Track your expenses and manage your budget with ease.</p>
+  <div class="home-buttons">
+      <button class="home-button add-expense" (click)="showAddExpenseForm = true">➕ Add Expense</button>
+      <button class="home-button add-category" (click)="showAddCategoryForm = true">➕ Add Category</button>
+    </div>
   </div>
-  
+  <app-summary></app-summary>
