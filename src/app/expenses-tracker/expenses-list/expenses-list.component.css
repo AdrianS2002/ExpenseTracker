@@ -50,3 +50,20 @@
       align-items: flex-start;
   }
 }
+
+
+.sorting-controls {
+  margin-bottom: 1rem;
+}
+
+.sorting-controls button {
+  margin-right: 0.5rem;
+  background: #f1f1f1;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.sorting-controls button:hover {
+  background: #ddd;
+}

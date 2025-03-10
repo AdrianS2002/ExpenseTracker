@@ -1,18 +1,36 @@
+<div class="sorting-controls">
+  <!-- Sort by Date -->
+  <button (click)="onSortBy('date')">
+    Date
+    <span *ngIf="sortBy === 'date' && sortDirection === 'asc'">↑</span>
+    <span *ngIf="sortBy === 'date' && sortDirection === 'desc'">↓</span>
+  </button>
+
+  <!-- Sort by Name -->
+  <button (click)="onSortBy('name')">
+    Name
+    <span *ngIf="sortBy === 'name' && sortDirection === 'asc'">↑</span>
+    <span *ngIf="sortBy === 'name' && sortDirection === 'desc'">↓</span>
+  </button>
+
+  <!-- Sort by Amount -->
+  <button (click)="onSortBy('amount')">
+    Amount
+    <span *ngIf="sortBy === 'amount' && sortDirection === 'asc'">↑</span>
+    <span *ngIf="sortBy === 'amount' && sortDirection === 'desc'">↓</span>
+  </button>
+</div>
+
 <div class="expenses-list">
-  <div class="list-container">
-    @if (this.expenseTrackerService.getExpenses()().length > 0) {
-    @for (expense of this.expenseTrackerService.getExpenses()(); track $index) {
-    <app-expense 
-      [id]="expense.id!" 
-      [name]="expense.name!" 
-      [category]="expense.categoryName!" 
+  <div *ngFor="let expense of sortedExpenses; trackBy: trackByIndex">
+    <app-expense
+      [id]="expense.id"
+      [name]="expense.name"
+      [categoryId]="expense.categoryId"
       [amount]="expense.amount">
     </app-expense>
-    }
-    } @else {
-      <div class="no-expenses">No expenses for this day.</div>
-    }
   </div>
+
   <!-- Total Section -->
   <div class="total-section">
     <span>Total:</span>

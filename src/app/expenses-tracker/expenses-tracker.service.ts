@@ -3,10 +3,11 @@ import { DatabaseService } from '../database/databse.service';
 import { Category } from '../database/models/category.model';
 import { Expense } from '../database/models/expenses.model';
 import { catchError, map, of, tap } from 'rxjs';
+import { CategoriesService } from '../categories/categories.service';
 
-const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as const;
+export const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as const;
 const DAY_NUMBER_AMERICAN_TO_EUROPEAN = [6, 0, 1, 2, 3, 4, 5] as const;
-type DayOfWeek = typeof DAYS_OF_WEEK[number];
+export type DayOfWeek = typeof DAYS_OF_WEEK[number];
 
 interface UserData {
   id: string;
@@ -17,10 +18,13 @@ interface UserData {
 })
 export class ExpensesTrackerService {
   private readonly databaseService = inject(DatabaseService);
+
+  private readonly categoriesService = inject(CategoriesService);
   showForm = signal<boolean>(false);
+
   // Core state
   private selectedDay = signal<DayOfWeek>('Monday');
-  private expenseCategories = signal<Category[]>([]);
+  private expenseCategories = this.categoriesService.getCategories();
   private expenses = signal<Expense[]>([]);
   private totalAmount = signal<number>(0);
 
@@ -41,7 +45,7 @@ export class ExpensesTrackerService {
   }
 
   getExpenseCategories(): Signal<Category[]> {
-    return this.expenseCategories.asReadonly();
+    return this.expenseCategories;
   }
 
   getAvailableDays(): DayOfWeek[] {
@@ -73,14 +77,14 @@ export class ExpensesTrackerService {
   addExpense(name: string, amount: number, categoryId: string): void {
     const userData = this.getUserData();
     if (!userData) return;
-
+  
     const expense: Omit<Expense, 'id'> = {
       name,
       amount,
       categoryId,
-      date: this.dayToDateMap.get(this.selectedDay()) ?? ''
+      date: new Date().toISOString() 
     };
-
+  
     this.databaseService.addExpense(userData.id, expense).pipe(
       tap(() => this.fetchExpensesForSelectedDay()),
       catchError((error) => {
@@ -121,7 +125,7 @@ export class ExpensesTrackerService {
   private initializeService(): void {
     // Rebuild the day-to-date map and fetch initial data
     this.generateDayToDateMap();
-    this.fetchExpenseCategories();
+    // this.fetchExpenseCategories();
     this.fetchExpensesForSelectedDay();
   }
 
@@ -135,7 +139,8 @@ export class ExpensesTrackerService {
     this.databaseService.getExpensesForDate(userData.id, date).pipe(
       map(expenses => this.enrichExpensesWithCategories(expenses)),
       catchError((error) => {
-        console.error('Failed to fetch expenses:', error);
+    console.error('Failed to fetch expenses for date:', date, error);
+
         return of([]);
       })
     ).subscribe(expenses => {
@@ -144,17 +149,17 @@ export class ExpensesTrackerService {
     });
   }
 
-  private fetchExpenseCategories(): void {
-    const userData = this.getUserData();
-    if (!userData) return;
+  // private fetchExpenseCategories(): void {
+  //   const userData = this.getUserData();
+  //   if (!userData) return;
 
-    this.databaseService.getCategories(userData.id).pipe(
-      catchError((error) => {
-        console.error('Failed to fetch categories:', error);
-        return of([]);
-      })
-    ).subscribe(categories => this.expenseCategories.set(categories));
-  }
+  //   this.databaseService.getCategories(userData.id).pipe(
+  //     catchError((error) => {
+  //       console.error('Failed to fetch categories:', error);
+  //       return of([]);
+  //     })
+  //   ).subscribe(categories => this.expenseCategories.set(categories));
+  // }
 
   private enrichExpensesWithCategories(expenses: Expense[]): Expense[] {
     return expenses.map(expense => ({
@@ -163,7 +168,8 @@ export class ExpensesTrackerService {
     }));
   }
 
-  private getCategoryNameById(categoryId: string): string {
+  // Changed from private to public so it can be accessed outside this service.
+  public getCategoryNameById(categoryId: string): string {
     return this.expenseCategories()
       .find(category => category.id === categoryId)
       ?.name ?? '';
