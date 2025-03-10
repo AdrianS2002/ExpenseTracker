@@ -16,8 +16,17 @@ export class DatabaseService {
 
     const batch = writeBatch(this.firestore);
 
-    // Add user doc
-    batch.set(userRef, { email, hashedPassword, createdAt: new Date() });
+    // Define a user data object
+    const userData = {
+      email: email,
+      hashedPassword: hashedPassword,
+      weeklySpendingCap: 0, // Default weekly spending cap
+      capLastUpdated: new Date().toISOString(), // Current date
+      createdAt: new Date()
+    };
+
+    // Add user document with default values
+    batch.set(userRef, userData);
 
     // Default category
     const defaultCategoryRef = doc(categoriesRef);
@@ -52,6 +61,39 @@ export class DatabaseService {
     const hashedPassword = btoa(newPassword);
     const userRef = doc(this.firestore, `users/${userId}`);
     return from(updateDoc(userRef, { hashedPassword }));
+  }
+
+  // Fetch the user's weekly spending cap
+  fetchWeeklyCap(userId: string): Observable<{ weeklySpendingCap: number, capLastUpdated: string | null }> {
+    const userRef = doc(this.firestore, `users/${userId}`);
+    return from(getDoc(userRef)).pipe(
+      map((docSnap) => {
+        const data = docSnap.data();
+        return {
+          weeklySpendingCap: data?.['weeklySpendingCap'] || 0,
+          capLastUpdated: data?.['capLastUpdated'] || null
+        };
+      }),
+      catchError((error) => {
+        console.error('Error fetching weekly cap:', error);
+        return throwError(() => new Error('Failed to fetch weekly cap'));
+      })
+    );
+  }
+
+  // Update the user's weekly spending cap
+  updateWeeklyCap(userId: string, cap: number): Observable<void> {
+    const userRef = doc(this.firestore, `users/${userId}`);
+    return from(updateDoc(userRef, {
+      weeklySpendingCap: cap,
+      capLastUpdated: new Date().toISOString()
+    })).pipe(
+      tap(() => console.log('Weekly cap updated successfully!')),
+      catchError((error) => {
+        console.error('Error updating weekly cap:', error);
+        return throwError(() => new Error('Failed to update weekly cap'));
+      })
+    );
   }
 
   // ----------------------------

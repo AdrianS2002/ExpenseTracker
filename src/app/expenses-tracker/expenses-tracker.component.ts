@@ -3,6 +3,8 @@ import { ExpensesListComponent } from "./expenses-list/expenses-list.component";
 import { DayPickerComponent } from "./day-picker/day-picker.component";
 import { AddExpenseComponent } from "./add-expense/add-expense.component";
 import { ExpensesTrackerService } from './expenses-tracker.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-expenses-tracker',
@@ -14,4 +16,11 @@ import { ExpensesTrackerService } from './expenses-tracker.service';
 export class ExpensesTrackerComponent {
   expenseService = inject(ExpensesTrackerService);
   showForm = this.expenseService.showForm;
+
+  constructor(private router: Router) { }
+
+  openWeeklyBudget(): void {
+    this.router.navigate(['/weekly-budget']); // Navigate to the weekly budget page
+  }
 }
+
