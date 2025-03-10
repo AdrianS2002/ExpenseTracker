@@ -1,8 +1,10 @@
 <div class="expense-container">
-    <div class="expense-header">
-      <app-day-picker></app-day-picker>
-      <app-expenses-list></app-expenses-list>
-    </div>
-
-    <app-add-expense></app-add-expense>
+  <div class="expense-header">
+    <app-day-picker></app-day-picker>
+    <app-expenses-list></app-expenses-list>
+    @if(!showForm()){
+      <button class="add-button" (click)="showForm.set(true)">➕ Add Expense</button>
+    }
   </div>
+  <app-add-expense></app-add-expense>
+</div>

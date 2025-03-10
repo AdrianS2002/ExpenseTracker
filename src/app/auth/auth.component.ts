@@ -40,7 +40,8 @@ export class AuthComponent {
         next: (resData) => {
           console.log('Logged in:', resData);
           this.isLoading = false;
-          this.router.navigate(['/summary']);                       //setezi ruta unde vrei sa mearga dupa login
+          this.authService.isLogged.set(true);
+          this.router.navigate(['/home']);                       //setezi ruta unde vrei sa mearga dupa login
         },
         error: (errorMessage) => {
           console.log(errorMessage);
@@ -65,6 +66,7 @@ export class AuthComponent {
           console.log(resData);
           this.isLoading = false;
           this.isLoginMode = !this.isLoginMode;
+          this.authService.isLogged.set(true);
           this.successMessage = "Verification email sent! Please check your inbox.";
         },
         error: (errorMessage) => {

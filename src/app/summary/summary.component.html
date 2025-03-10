@@ -1,14 +1,9 @@
 <!-- src/app/summary/summary.component.html -->
 <div class="summary-page">
-  <h1>Weekly Expenses Summary</h1>
-  <div class="expense-total">
-    Total: ${{ totalAmount }}
-  </div>
+  <h1>Your total expenses for this week: <strong>${{ totalAmount }}</strong></h1> 
   <app-expense-table></app-expense-table>
   <app-piechart></app-piechart>
-  <button class="btn-primary" (click)="navigateToExpenses()">
-    Add Expenses
-  </button>
+  <button class="summary-button" (click)="navigateToExpenses()">➕ Add Expense</button>
  <br>
   
 </div>

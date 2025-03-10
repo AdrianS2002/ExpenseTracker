@@ -9,19 +9,24 @@
 /* Title styling */
 :host h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.5rem; /* reduced font size */
   text-align: center;
   flex: 1; /* let it center while hamburger is on the left */
 }
 
-.app-header{
+.app-header {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--secondary-bg);
+  color: var(--primary-bg);
   width: 100%;
-  background-color: var(--primary-bg);
-  color: var(--secondary-bg);
-  padding: var(--padding-md);
+  padding: var(--padding-sm); /* reduced padding */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* added shadow box */
 }
 
 /* Hamburger hidden by default on desktop */
@@ -48,7 +53,7 @@
   .hamburger {
     display: block;
     cursor: pointer;
-    margin-right: 1rem; /* space between hamburger and title */
+    margin: 1rem; /* space between hamburger and title */
   }
 
   h1 {

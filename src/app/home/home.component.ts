@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SummaryComponent } from "../summary/summary.component";
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +11,14 @@ import { SummaryComponent } from "../summary/summary.component";
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  showAddExpenseForm: boolean = false;
-  showAddCategoryForm: boolean = false;
+  router = inject(Router);
+  authServices = inject(AuthService);
+
+  navigateToExpenses(): void {
+    this.router.navigate(['/expenses']);
+  }
+
+  navigateToCategories(): void {
+    this.router.navigate(['/categories']);
+  }
 }
