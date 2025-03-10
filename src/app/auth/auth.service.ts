@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import { BehaviorSubject, catchError, from, map, Observable, switchMap, take, tap, throwError } from "rxjs";
 import { User } from "../database/models/user.model";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
@@ -24,6 +24,7 @@ export class AuthService {
 
   // BehaviorSubject to track the authenticated user (or null if not logged in)
   user = new BehaviorSubject<User | null>(null);
+  isLogged = signal<boolean>(false);
 
   constructor(
     private http: HttpClient,

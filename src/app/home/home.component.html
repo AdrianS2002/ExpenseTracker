@@ -1,15 +1,14 @@
 <div class="home-container">
   <h2>Welcome to Expense Tracker</h2>
   <p>Track your expenses and manage your budget with ease.</p>
+  @if(authServices.isLogged()){
   <div class="home-buttons">
-    <button class="home-button add-expense"  (click)="navigateToExpenses()">
+    <button class="home-button add-expense" (click)="navigateToExpenses()">
       ➕ Add Expense
     </button>
-    <button
-      class="home-button add-category"
-      (click)="navigateToCategories()"
-    >
+    <button class="home-button add-category" (click)="navigateToCategories()">
       ➕ Add Category
     </button>
   </div>
+  }
 </div>
