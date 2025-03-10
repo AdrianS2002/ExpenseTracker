@@ -1,5 +1,28 @@
+<div class="sorting-controls">
+  <!-- Sort by Date -->
+  <button (click)="onSortBy('date')">
+    Date
+    <span *ngIf="sortBy === 'date' && sortDirection === 'asc'">↑</span>
+    <span *ngIf="sortBy === 'date' && sortDirection === 'desc'">↓</span>
+  </button>
+
+  <!-- Sort by Name -->
+  <button (click)="onSortBy('name')">
+    Name
+    <span *ngIf="sortBy === 'name' && sortDirection === 'asc'">↑</span>
+    <span *ngIf="sortBy === 'name' && sortDirection === 'desc'">↓</span>
+  </button>
+
+  <!-- Sort by Amount -->
+  <button (click)="onSortBy('amount')">
+    Amount
+    <span *ngIf="sortBy === 'amount' && sortDirection === 'asc'">↑</span>
+    <span *ngIf="sortBy === 'amount' && sortDirection === 'desc'">↓</span>
+  </button>
+</div>
+
 <div class="expenses-list">
-  <div *ngFor="let expense of expenseTrackerService.getExpenses()(); trackBy: trackByIndex">
+  <div *ngFor="let expense of sortedExpenses; trackBy: trackByIndex">
     <app-expense
       [id]="expense.id"
       [name]="expense.name"
