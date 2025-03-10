@@ -163,7 +163,8 @@ export class ExpensesTrackerService {
     }));
   }
 
-  private getCategoryNameById(categoryId: string): string {
+  // Changed from private to public so it can be accessed outside this service.
+  public getCategoryNameById(categoryId: string): string {
     return this.expenseCategories()
       .find(category => category.id === categoryId)
       ?.name ?? '';

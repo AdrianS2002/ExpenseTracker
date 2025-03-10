@@ -1,14 +1,19 @@
-import { Component, inject } from '@angular/core';
-import { ExpenseComponent } from "./expense/expense.component";
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ExpenseComponent } from './expense/expense.component';
 import { ExpensesTrackerService } from '../expenses-tracker.service';
 
 @Component({
   selector: 'app-expenses-list',
   standalone: true,
-  imports: [ExpenseComponent],
+  imports: [CommonModule, ExpenseComponent],
   templateUrl: './expenses-list.component.html',
-  styleUrl: './expenses-list.component.css'
+  styleUrls: ['./expenses-list.component.css']
 })
 export class ExpensesListComponent {
-  expenseTrackerService = inject(ExpensesTrackerService);
+  constructor(public expenseTrackerService: ExpensesTrackerService) {}
+
+  trackByIndex(index: number): number {
+    return index;
+  }
 }
