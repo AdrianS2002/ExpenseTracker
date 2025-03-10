@@ -21,6 +21,7 @@ app-sidebar {
 .content-area {
   flex: 1;
   margin: 0;
+  margin-top: 5%;
   background-color: var(--primary-bg);
 }
 
