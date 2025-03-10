@@ -2,12 +2,12 @@
   <h2>Welcome to Expense Tracker</h2>
   <p>Track your expenses and manage your budget with ease.</p>
   <div class="home-buttons">
-    <button class="home-button add-expense" (click)="showAddExpenseForm = true">
+    <button class="home-button add-expense"  (click)="navigateToExpenses()">
       ➕ Add Expense
     </button>
     <button
       class="home-button add-category"
-      (click)="showAddCategoryForm = true"
+      (click)="navigateToCategories()"
     >
       ➕ Add Category
     </button>
