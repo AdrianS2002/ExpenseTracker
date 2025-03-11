@@ -15,7 +15,7 @@
                 class="edit-button" 
                 *ngIf="selectedCategory?.id !== category.id" 
                 (click)="openEditDialog(category)">
-                ✏️ Edit
+                <i class="fas fa-edit"></i>
             </button>
 
             <app-edit-category 
