@@ -19,6 +19,6 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'summary', component: SummaryComponent, canActivate: [AuthGuard] },
   { path: 'categories', component: CategoriesComponent, canActivate: [AuthGuard] },
-  { path: 'weekly-budget', component: WeeklyBudgetComponent },
+  { path: 'weekly-budget', component: WeeklyBudgetComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];

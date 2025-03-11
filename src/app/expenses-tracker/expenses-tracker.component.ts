@@ -16,11 +16,5 @@ import { Router } from '@angular/router';
 export class ExpensesTrackerComponent {
   expenseService = inject(ExpensesTrackerService);
   showForm = this.expenseService.showForm;
-
-  constructor(private router: Router) { }
-
-  openWeeklyBudget(): void {
-    this.router.navigate(['/weekly-budget']); // Navigate to the weekly budget page
-  }
 }
 

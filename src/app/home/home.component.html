@@ -1,7 +1,31 @@
 <div class="home-container">
   <h2>Welcome to Expense Tracker</h2>
   <p>Track your expenses and manage your budget with ease.</p>
-  @if(authServices.isLogged()){
+
+  <!-- Show budget-related UI only if the user is authenticated -->
+  @if(authServices.isLogged()) {
+  <div *ngIf="weeklyBudget !== null">
+    <p>Your Weekly Budget: {{ weeklyBudget }}</p>
+    <button (click)="openModal()">Edit Budget</button>
+  </div>
+
+  <!-- Button to open the modal  -->
+  <div *ngIf="weeklyBudget === null">
+    <button (click)="openModal()">Set Weekly Budget</button>
+  </div>
+  }
+
+  <!-- The modal -->
+  <div class="modal-backdrop" *ngIf="isModalOpen">
+    <div class="modal">
+      <div class="modal-content">
+        <app-weekly-budget (budgetSet)="onBudgetSet($event)"
+                           (closeModal)="closeModal()"></app-weekly-budget>
+      </div>
+    </div>
+  </div>
+
+  @if(authServices.isLogged()) {
   <div class="home-buttons">
     <button class="home-button add-expense" (click)="navigateToExpenses()">
       ➕ Add Expense

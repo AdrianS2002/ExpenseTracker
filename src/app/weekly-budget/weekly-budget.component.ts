@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { DatabaseService } from '../database/databse.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-weekly-budget',
   standalone: true,
-  imports: [CommonModule, FormsModule], 
+  imports: [CommonModule, FormsModule],
   templateUrl: './weekly-budget.component.html',
   styleUrls: ['./weekly-budget.component.css']
 })
-export class WeeklyBudgetComponent implements OnInit {
-  spendingCap: number = 0;
-  isEditingCap: boolean = false;
-  newCap: number = 0;
-  isLoading: boolean = false;
+export class WeeklyBudgetComponent {
+  spendingCap: number = 0; // Current weekly budget
+  newCap: number = 0; // Temporary variable for editing
+  isLoading: boolean = false; // Loading state
+
+  @Output() closeModal = new EventEmitter<void>(); // Emit when the modal should close
+  @Output() budgetSet = new EventEmitter<number>(); // Emit the new budget
 
   constructor(
     private authService: AuthService,
@@ -29,6 +31,7 @@ export class WeeklyBudgetComponent implements OnInit {
         this.databaseService.fetchWeeklyCap(user.id).subscribe(
           (data) => {
             this.spendingCap = data.weeklySpendingCap || 0;
+            this.newCap = this.spendingCap; // Initialize newCap with the current budget
             this.isLoading = false;
           },
           (error) => {
@@ -38,18 +41,6 @@ export class WeeklyBudgetComponent implements OnInit {
         );
       }
     });
-  }
-
-  startCapEdit(): void {
-    console.log('Edit button clicked'); // Debugging
-    this.isEditingCap = true;
-    console.log('isEditingCap:', this.isEditingCap); // Debugging
-    this.newCap = this.spendingCap;
-  }
-
-  cancelCapEdit(): void {
-    this.isEditingCap = false;
-    this.newCap = this.spendingCap;
   }
 
   saveCap(): void {
@@ -59,8 +50,9 @@ export class WeeklyBudgetComponent implements OnInit {
         this.databaseService.updateWeeklyCap(user.id, this.newCap).subscribe(
           () => {
             this.spendingCap = this.newCap;
-            this.isEditingCap = false;
             this.isLoading = false;
+            this.budgetSet.emit(this.newCap); // Emit the new budget
+            this.closeModal.emit(); // Close the modal
           },
           (error) => {
             console.error(error);
@@ -69,5 +61,9 @@ export class WeeklyBudgetComponent implements OnInit {
         );
       }
     });
+  }
+
+  cancelEdit(): void {
+    this.closeModal.emit(); // Close the modal without saving
   }
 }

@@ -1,10 +1,7 @@
-<div *ngIf="!isEditingCap">
-  <p>Your Weekly Spending Cap: {{ spendingCap }}</p>
-  <button (click)="startCapEdit()">Edit Cap</button>
-</div>
-<div *ngIf="isEditingCap">
+<div>
+  <p>Your Weekly Budget: {{ spendingCap }}</p>
   <input type="number" [(ngModel)]="newCap" />
   <button (click)="saveCap()">Save</button>
-  <button (click)="cancelCapEdit()">Cancel</button>
+  <button (click)="cancelEdit()">Cancel</button>
 </div>
 <div *ngIf="isLoading">Loading...</div>
