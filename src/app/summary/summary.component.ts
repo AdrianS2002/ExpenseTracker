@@ -6,23 +6,26 @@ import { AuthService } from '../auth/auth.service';
 import { DatabaseService } from '../database/databse.service';
 import { PieChartComponent } from "../piechart/piechart.component";
 import { ExpenseTableComponent } from "../expense-table/expense-table.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css'],
   standalone: true,
-  imports: [PieChartComponent, ExpenseTableComponent]
+  imports: [PieChartComponent, ExpenseTableComponent, CommonModule]
 })
 export class SummaryComponent implements OnInit, OnDestroy {
   totalAmount = 0; // Total spent during the week
+  weeklyBudget: number = 0; // Weekly budget
+  savings: number = 0; // Savings (can be negative)
   private userSub?: Subscription;
 
   constructor(
     private authService: AuthService,
     private databaseService: DatabaseService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Subscribe to the AuthService to get the current user.
@@ -33,26 +36,35 @@ export class SummaryComponent implements OnInit, OnDestroy {
         return;
       }
       const userId = user.id;
-      // Get an array of dates (YYYY-MM-DD) for the current week (Monday to Sunday)
-      const weekDates = this.getWeekDates();
 
-      // For each day, fetch expenses using getExpensesForDate
-      const observables = weekDates.map(date =>
-        this.databaseService.getExpensesForDate(userId, date).pipe(
-          catchError(error => {
-            console.error(`Error fetching expenses for ${date}:`, error);
-            return of([]); // On error, return an empty array
-          })
-        )
-      );
+      // Fetch the weekly budget
+      this.databaseService.fetchWeeklyCap(userId).subscribe(budgetData => {
+        this.weeklyBudget = budgetData.weeklySpendingCap || 0;
 
-      // Wait for all daily expense observables to complete
-      forkJoin(observables).subscribe(expensesArrays => {
-        // Flatten all arrays into one list of expenses
-        const allExpenses = expensesArrays.flat();
-        // Sum up the amount for all expenses
-        this.totalAmount = allExpenses.reduce((sum, expense) => sum + expense.amount, 0);
-        console.log('Weekly total:', this.totalAmount);
+        // Get an array of dates (YYYY-MM-DD) for the current week (Monday to Sunday)
+        const weekDates = this.getWeekDates();
+
+        // For each day, fetch expenses using getExpensesForDate
+        const observables = weekDates.map(date =>
+          this.databaseService.getExpensesForDate(userId, date).pipe(
+            catchError(error => {
+              console.error(`Error fetching expenses for ${date}:`, error);
+              return of([]); // On error, return an empty array
+            })
+          )
+        );
+
+        // Wait for all daily expense observables to complete
+        forkJoin(observables).subscribe(expensesArrays => {
+          // Flatten all arrays into one list of expenses
+          const allExpenses = expensesArrays.flat();
+          // Sum up the amount for all expenses
+          this.totalAmount = allExpenses.reduce((sum, expense) => sum + expense.amount, 0);
+          // Calculate savings
+          this.savings = this.weeklyBudget - this.totalAmount;
+          console.log('Weekly total:', this.totalAmount);
+          console.log('Weekly savings:', this.savings);
+        });
       });
     });
   }

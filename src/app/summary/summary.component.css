@@ -49,6 +49,15 @@ app-piechart {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
+.savings-section {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.negative {
+  color: red; /* Highlight negative savings in red */
+}
+
 @media (max-width: 768px) {
   .summary-page {
       padding: 1rem;

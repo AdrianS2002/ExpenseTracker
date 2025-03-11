@@ -1,9 +1,10 @@
-<!-- src/app/summary/summary.component.html -->
 <div class="summary-page">
-  <h1>Your total expenses for this week: <strong>${{ totalAmount }}</strong></h1> 
+  <h1>Your total expenses for this week: <strong>${{ totalAmount }}</strong></h1>
+  <div class="savings-section">
+    <h2>Weekly Savings: <strong [ngClass]="{ 'negative': savings < 0 }">${{ savings }}</strong></h2>
+  </div>
   <app-expense-table></app-expense-table>
   <app-piechart></app-piechart>
   <button class="summary-button" (click)="navigateToExpenses()">➕ Add Expense</button>
- <br>
-  
+  <br>
 </div>
