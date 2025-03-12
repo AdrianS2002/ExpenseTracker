@@ -1,0 +1,18 @@
+<div class="weekly-budget-container">
+  <h1>
+    Weekly Budget:
+    <span *ngIf="!editMode">{{ user?.weeklyBudget }}</span>
+    <input *ngIf="editMode" type="number" [(ngModel)]="newBudget" placeholder="Enter new budget" />
+  </h1>
+  <div class="budget-buttons">
+    <button *ngIf="!editMode" (click)="onEdit()">Edit</button>
+    <div *ngIf="editMode">
+      <button (click)="onSave()">Save</button>
+      <button (click)="onCancelEdit()">Cancel</button>
+    </div>
+  </div>
+  <div class="remaining-budget" [ngStyle]="{'color': remainingBudget >= 0 ? 'green' : 'red'}">
+    Remaining Budget: {{ remainingBudget }}
+  </div>
+  <div *ngIf="isLoading" class="spinner"></div>
+</div>
