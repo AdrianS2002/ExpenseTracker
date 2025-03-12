@@ -3,4 +3,7 @@
     margin-bottom: 0.5rem; /* Space below the text */
 }
 
+.category-card{
+    z-index: 1;
+}
 

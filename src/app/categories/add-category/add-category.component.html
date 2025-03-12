@@ -1,25 +1,24 @@
-<!-- Buton pentru a deschide pop-up-ul -->
+<!-- Button to open the pop-up -->
 <button class="open-popup-button" (click)="showForm = true">➕ Add Category</button>
 
-<!-- Overlay și Pop-up -->
+<!-- Overlay and Pop-up -->
 @if (showForm) {
   <div class="overlay">
     <div class="add-category-wrapper">
       <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-        <div class="add-category">
-          <!-- Numele categoriei -->
-          <div class="input-group">
-            <label for="category-name">Category Name</label>
-            <input type="text" 
-                   id="category-name" 
-                   formControlName="name"
-                   placeholder="e.g. Food, Transportation"
-                   required>
-            @if (categoryForm.get('name')?.errors?.['required'] && categoryForm.get('name')?.touched) {
-              <div class="error">Name is required</div>
-            }
-          </div>
-          <!-- Butoane -->
+        <h2>Add Category</h2>
+        <div class="input-group">
+          <label for="category-name">Category Name</label>
+          <input type="text" 
+                 id="category-name" 
+                 formControlName="name"
+                 placeholder="e.g. Food, Transportation"
+                 required>
+          @if (categoryForm.get('name')?.errors?.['required'] && categoryForm.get('name')?.touched) {
+            <div class="error">Name is required</div>
+          }
+        </div>
+        <div class="actions">
           <button type="submit" class="add-btn" [disabled]="!categoryForm.valid">
             ➕ Add Category
           </button>
