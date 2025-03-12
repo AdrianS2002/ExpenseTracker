@@ -25,5 +25,6 @@ export class AddCategoryComponent {
       this.categoryForm.reset();
       this.categoryForm.markAsPristine();
       this.categoryForm.markAsUntouched();
+      this.showForm = false;
     }
 } 

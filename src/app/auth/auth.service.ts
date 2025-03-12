@@ -77,14 +77,15 @@ export class AuthService {
 
   private handleAuthentification(email: string, userId: string, token: string, expiresIn: number) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new User(email, userId, token, expirationDate);
+    const user = new User(email, userId, token, expirationDate, 0, new Date());
     this.user.next(user);
     // Save a simple object with only the necessary data to local storage.
     localStorage.setItem('userData', JSON.stringify({
       email: user.emaiL,
       id: user.id,
       _token: user.token,
-      _tokenExpirationDate: expirationDate.toISOString()
+      _tokenExpirationDate: expirationDate.toISOString(),
+      lastWeeklyBudgetUpdate: new Date().toISOString()
     }));
   }
 
@@ -178,7 +179,9 @@ export class AuthService {
         userDataObj.email,
         userDataObj.id,
         userDataObj._token,
-        new Date(userDataObj._tokenExpirationDate)
+        new Date(userDataObj._tokenExpirationDate),
+        userDataObj.weeklyBudget.toString(),
+        userDataObj.lastWeeklyBudgetUpdate ? new Date(userDataObj.lastWeeklyBudgetUpdate) : new Date()
       );
       if (loadedUser.token) {
         this.user.next(loadedUser);

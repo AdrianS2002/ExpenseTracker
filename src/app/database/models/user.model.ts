@@ -3,7 +3,9 @@ export class User {
         public emaiL: string,
         public id: string,
         private _token: string,
-        private _tokenExpirationDate: Date) {}
+        public _tokenExpirationDate: Date,
+        public weeklyBudget: number,
+        public lastWeeklyBudgetUpdate: Date) {}
 
         get token() {
             if(!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
