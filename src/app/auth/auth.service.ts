@@ -180,7 +180,7 @@ export class AuthService {
         userDataObj.id,
         userDataObj._token,
         new Date(userDataObj._tokenExpirationDate),
-        userDataObj.weeklyBudget.toString(),
+        userDataObj.weeklyBudget !== undefined ? userDataObj.weeklyBudget : 0,
         userDataObj.lastWeeklyBudgetUpdate ? new Date(userDataObj.lastWeeklyBudgetUpdate) : new Date()
       );
       if (loadedUser.token) {
