@@ -1,31 +1,96 @@
-.categories-list {
+/* Stilizare pentru secțiunea totală */
+.total-section {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 1.5rem;
     display: flex;
-    flex: 1;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
+.total-section .total-count {
+    font-weight: 700;
+    color: #6a11cb; /* Purple */
+}
+
+/* Stilizare pentru lista de categorii */
+.categories-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Stilizare pentru cardul de categorie */
 .category-card {
-    background-color: var(--secondary-bg);
-    border: 1px solid #ddd;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin: 0.5rem;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-    width: calc(33.333% - 1rem); 
-    box-sizing: border-box; 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #ffffff;
+    color: black;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .edit-button {
-    background-color: var(--button-bg); /* Use global button background */
-    color: var(--text-color); /* Use global text color */
-    border: none; /* No border */
-    border-radius: var(--border-radius); /* Use global border radius */
-    padding: var(--padding-md) var(--padding-lg); /* Use global padding */
-    cursor: pointer; /* Pointer cursor on hover */
-    margin: 0.25rem;
+    padding: 0;
+    background-color: white;
 }
 
 .edit-button:hover {
-    background-color: var(--button-hover-bg); /* Use global button hover background */
+    transform: scale(1.1);
 }
 
+app-edit-category {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .categories-list {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .category-card {
+        padding: 1rem;
+    }
+
+    .edit-button {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .total-section {
+        font-size: 1rem;
+    }
+
+    .categories-list {
+        grid-template-columns: 1fr;
+    }
+
+    .category-card {
+        padding: 1rem;
+    }
+}
